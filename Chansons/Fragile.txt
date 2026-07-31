@@ -1,0 +1,25 @@
+Fragile
+	Structure:
+		4/4 n=96 
+		Intro : instrumental
+		Couplet : If blood will flow When flesh and steel are one
+		Refrain 1 : On and on the rain will fall
+		Couplet : Perhaps the final act was meant 
+		Refrain 2 : On and on the rain will fall like tears from a star
+		
+	Couplet:
+		4: Dm Gm A7 Dm 
+		4: Dm Gm A7 Dm 
+		
+	Intro:
+		4: Dm Gm A7 Dm 
+		4: Dm Gm A7 Dm 
+		
+	Refrain 1:
+		4:  Gm A7 Dm
+		4:  Gm A7 4: Dm Dm
+		
+	Refrain 2:
+		4:  Gm A7 Dm  Dm
+		4:  Gm A7 4: Dm Dm
+			

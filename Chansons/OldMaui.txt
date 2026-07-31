@@ -1,0 +1,36 @@
+Rolling Down to Old Maui
+	Structure:
+		4/4 n=115 
+		Intermède : Intro 8 mesures Instrumental
+		Couplet : Once more we are waft 
+		Intermède Court : 4 mesures
+		Couplet : Through many a blow
+		Refrain : Rolling down to old Maui
+		Couplet2 : Through many a blow
+		Refrain : Rolling down to old Maui
+		Instrumental : Couplet2 en Bm 16 mesures  Intermède  8 mesures
+		Couplet : An ample share of toil and care
+		Refrain : Rolling down to old Maui
+		Refrain : Et Fin Rolling down to old Maui
+
+	Intermède:
+		4: F#m .  Em . F#m .  Em .
+	Intermède Court:
+		4: F#m .  Em .
+	Couplet:
+		4: F#m .  Em G F#m .  Em 2: Em E
+		4: A Am F E7sus4 2: Am Em/A Am Em/A Am Em/A 4: Am
+	Refrain:
+		4/4 n=140 4: C G Am E 2: Am Em/A Am Em/A Am Em/A 4: Am
+	Couplet2: 
+		4/4 n=150 
+		2: Am Em/A   Am Em/A  Am C 4: Em 2: Am Em/A Am Em/A Am Em/A 4: Am
+		4: C G Am E 2: Am Em/A Am Em/A Am Em/A 4: Am
+	Refrain Et Fin:
+		4: C G Am E 2: Am Em/A   Am Em/A 2: Am Em/A   4: Am
+		Am Am Am Am
+	Instrumental: 
+		4/4 n=165 4: Bm 4/4 n=115 F#m
+		
+		
+			

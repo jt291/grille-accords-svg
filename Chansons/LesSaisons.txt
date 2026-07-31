@@ -1,0 +1,31 @@
+Les saisons
+	Structure:
+		3/4 n=115
+		Refrain : Les saisons s'en viennent et sen vont --- en rond
+		Couplet : Sur ce manège on est prisonniers --- ou été
+		Refrain : Les saisons s'en viennent et sen vont --- en rond
+		Couplet2 : On voudrait bien s'arrêter un peu --- le jeu
+		CoupletB : Mais on ne peut pas --- jouer encore une fois à ce jeu-là
+		CoupletC : Tout ce qu'on peut faire --- qui tournent en rond
+	Refrain:
+		3: Em/G 2: Am 1: Dm 3: Em/G 1: Am Am G 
+		C C G/B Em Em Am  Dm Dm G7 C C C/B
+	Couplet:
+		1: Am B7 Em 2: Am  1: Em Am Em Am 2: Dm 1: Am 
+		Dm E Am 2: G 1: C Dm E Dm E Dm/F Em/G
+	Couplet2:
+		1: Am B7 Em 2: Am  1: Em Am Em Am 2: Dm 1: Am 
+		Dm E Am 2: G 1: C Dm E Dm 3: G
+	CoupletB:
+		2: G 1: Am 1: G 2:  G 2: Em 1: Am Em 2: Em
+		2: G 1: Am 1: G 2:  G 2: Em 1: Am Em 2: Em
+		2: C 1: Dm/F 2: E 1: E/B 2: Am/C 1: Dm/F 3: E
+		2: Am 1: A7 2: Dm 1: A7  2: Dm 1: G7 3: C
+	CoupletC:
+		2: G 1: Am 1: G 2:  G 2: Em 1: Am Em 2: Em
+		2: G 1: Am 1: G 2:  G 2: Em 1: Am Em 2: Em
+		2: C 1: Dm/F 2: E 1: E/B 2: Am/C 1: Dm/F 3: E
+		2: Am 1: A7 2: Dm 1: Gm/Bb  3: A7sus4 3: D
+		
+		
+		

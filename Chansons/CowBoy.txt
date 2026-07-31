@@ -1,0 +1,37 @@
+Cow-Boy
+	Structure:
+		3/4 n=96 
+		Couplet : Debout cow-boy debout
+		Refrain : Allez viens on se fait la belle
+		Couplet B : Depuis que je suis poulain 
+		Pont 1 : Cow-boy dis-donc tabuses
+		Couplet : Cow-boy  tas lair dêtre mort 
+		Refrain : Allez reviens on se fait la belle
+		Couplet B : Mais si tes vraiment mort 
+		Pont 2 : Debout cow-boy debout
+		Refrain Fin : Non mais reviens on se fait la belle
+		
+	Couplet:
+		3: D . Am . G GM7 A7 F#7 .
+		3: Bm7 E9 Bm7 E9 Em A7 D D7 
+		
+	Couplet B:
+		3: D . Am . G GM7 A7 F#7 .
+		3: Bm7 E9 Bm7 E9 Em A7 Dm . Dm . 
+		
+	Refrain:
+		3: G . Em . F#m F#sus4 D7 .
+		3: G . Em . C2 . D .  
+		
+	Refrain Fin:
+		3: G . Em . F#m F#sus4 D7 .
+		3: G . Em . C2 . D .  C2 . D .
+		
+	Pont 1:
+		3: Bb . F . Gm . A7 .
+		3: Em9 A7 Em9 A7
+
+	Pont 2:
+		3: Bb . F . Gm . A7 .
+		3: Em9 A7 F#m D7
+			

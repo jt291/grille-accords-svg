@@ -1,0 +1,23 @@
+Right or Wrong
+	Structure:
+		4/4 n=180
+		Intro : instrumental
+		Prologue : Maybe I am right
+		Couplet : -
+		Prologue : Maybe I am right
+		Couplet : -
+		Couplet : Instrumental
+		Couplet : Right or Wrong
+		
+	Intro:
+		4: E7 . A7 . G D7 G .
+	Prologue:
+		2: G E7 4: A7 D7 G 
+		2: G Gdim Am D7 4: D7 G
+		2: G E7 4: A7 2: D7 B7 4: Em
+		2: D C# Em6 1: B7 Bm7 2: A7 Cm6 4: D7
+	Couplet:
+		4: E7 . A7 .  D7 . G .
+		G . D7 . A7 . D7 .
+		E7 . A7 .  D7 . B7 .
+		E7 . A7 . G D7 G .

@@ -1,0 +1,21 @@
+I Am a Child
+	Structure:
+		4/4 n=162
+		Couplet : I am a child
+		Refrain : I gave to you
+		Couplet : You are a man
+		Refrain : I gave to you
+		Refrain : Instrumental True
+		Couplet : I am a child
+		Refrain : I gave to you
+		Fin : I am a child
+	Couplet:
+			4: Am G Em C Am C G Bm
+			Am G Em C Am Am7 4: A .
+	Refrain:
+			4: AM7 . Bm7 A D . A .
+			AM7 . Bm7 A Em7 . G .
+			Em7 . A .
+	Fin:
+			4: Am G Em C Am C G . Bm
+			 

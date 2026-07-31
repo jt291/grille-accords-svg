@@ -1,0 +1,16 @@
+Cry me a river
+	Structure:
+		4/4 n=80
+		Couplet A : Now you say youre lonely
+		Couplet B : Now you say youre sorry
+		Pont : You drove me, nearly drove me out of my head
+		Couplet A : Now you say you love me
+	Couplet A:
+		4: Em  Em 2: Am7 D7 2: G  B7 
+		4: E7 A7 2: Am7 D7 G B7
+	Couplet B:
+		4: Em  Em 2: Am7 D7 2: G  B7 
+		4: E7 A7 2: Am7 D7 G F#7
+	Pont:
+		4: Bm 2: Em/C# F#7 4: Bm 2: Em/C# F#7 
+		4: Bm 2: Em/C# F#7 4: B7 2: F#m B7 

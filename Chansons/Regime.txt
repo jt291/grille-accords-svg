@@ -1,0 +1,30 @@
+Regime
+	Structure:
+		4/4 n=110
+		Intro : Riff
+		Refrain : Au pain sec et à l'eau
+		Couplet : couplet
+		Couplet Refrain : couplet refrain
+		Couplet Refrain : Au pain sec et à l'eau
+		Couplet Refrain : Au pain sec et à l'eau
+		Pont : pont
+	Intro:
+		2: D D
+	Couplet:
+		2: D C A G D D 
+		G C D D
+		4: F# 2: Bm D7
+		4: G 2: Em7 A7
+		2: D C A G D D 
+		G C D D
+	Refrain:
+		2: A E G Bm A E G Bm
+		4: A  A  A  2: A C	
+	Couplet Refrain:
+		.
+		
+	Pont:
+		4: Am 2: G Am  4: Am 2: G Am
+		4: F#m F#m F#m F#m
+		2: A 1: A C 3: D  1: C 2: D C
+		

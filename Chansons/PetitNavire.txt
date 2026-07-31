@@ -1,0 +1,11 @@
+Petit navire
+	Structure:
+		3/8 
+		Couplet : Il était un petit navire
+	Couplet:
+		1: Gm . F . Gm . 
+		1: Gm . D . Em . 
+		1: Em .
+		1: D . . 
+		1: F . . 
+		1: Gm . .

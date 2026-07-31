@@ -1,0 +1,19 @@
+Glasgow Peggy
+	Structure:
+		4/4 
+		Couplet : As they came on
+		Couplet : Their chief did meet
+		Pont : O haud your tongue 
+		Couplet : He set her on a jet-black horse
+		Couplet : Instrumental
+		Couplet : I hae now ten thousand sheep
+		Pont :  Its I hae
+	Couplet:
+		4: D 1: C G 2: D 4: D 2: C D
+		4: D 2: Am C D Am C D
+		D Am C D
+	Pont:
+		4: Bb Dm Bb 2: C Dm
+		2: F C 2/4 Dm 4/4 2: G 1: F G 4: nc
+		2: D Am C D
+		D Am C D

@@ -1,0 +1,26 @@
+Havent we lost enough
+	Structure:
+		4/4 n=190
+		Riff2 : 8 mesures
+		Couplet : I was with you, you were alone
+		Riff1 : 4 mesures
+		Couplet : In the night your image arises
+		Riff1 : 4 mesures
+		Refrain : I still love you
+		Riff2 : 8 mesures
+		Couplet : Time heals all so they say I dont know
+		Riff1 : 4 mesures
+		Refrain : I still love you
+		Refrain : I still love you
+		Riff2 : 8 mesures
+	Riff1:
+		4: Em . Em .
+	Couplet:
+		4: Em G A2 Em Em G A2 .
+		Em G A2 Em G . C4 .
+		D .
+	Refrain:
+		G D A2 . Em . D .
+		G D A2 . Em . D .	
+	Riff2:
+		4: Em . Em . Em . Em .		

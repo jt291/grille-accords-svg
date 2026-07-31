@@ -1,0 +1,22 @@
+Les passes du temps
+	Structure:
+		4/4 
+		Couplet : J'étais petit
+		Refrain : C'est la règle du jeu
+		Intermede : Instrumental
+		Couplet : J'étais grand
+		Refrain : C'est la règle du jeu
+		Intermede : Instrumental
+	Couplet:
+		2: C CM7 4: CM7 A7 A7
+		Dm7 G7 Em Am
+		2: C CM7 4: CM7 A7 A7
+		Dm7 G7 Em Am
+	Refrain:
+		4: D7 G6 Am7 D7 
+		4:  G7 C7 B7 Em
+		4: D7 G6 Am7 D7 
+		4:  G7 C7 B7 Em
+	Intermede:
+		4: Dm Dm Em Em
+		4: Dm Dm 2: G6 G7 G6 G7 

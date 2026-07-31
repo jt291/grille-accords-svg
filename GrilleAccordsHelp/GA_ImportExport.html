@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<link href="HelpStyles.css" rel="stylesheet" type="text/css" media="all" />
+</head>
+<body>
+<div class="entete">
+	<a href="GrilleAccordsHelp.html">Aide Grille Accords</a> 
+</div>
+<div id="toc_0" class="titrePage">
+	<a href="GrilleAccordsHelp.html"><img width="48" height="48" src="images/GrilleAccords-64.png" alt="" /></a> &nbsp; Exportation Importation de Chansons 
+</div>
+<hr />
+<p>L'application Grille Accords gère un Livre de Chansons <b>unique</b>.</p>
+<p>Il est toutefois possible de faire des copies de chansons, par exemple, pour les archiver, les dupliquer ou les échanger entre utilisateurs de l'application.</p>
+<p>On procède alors a une <b>Exportation</b> ou a une <b>Importation</b> de Chansons.</p>
+<hr />
+<h2>
+	Exportation 
+</h2>
+<p>Menu: <tt>"Fichier/Exporter une Chanson…"</tt> <br />
+	Menu: <tt>"Fichier/Exporter les Chansons d'un Chapitre…"<tt> </p>
+<p>Lors d'une Exportation de Chansons un dialogue demande de sélectionner un dossier dans lequel sera enregistré un dossier contenant les chansons exportées.</p>
+<h4>
+	Par exemple Exportation : la chanson : <tt>"Petit Navire"</tt> dont le code est : 
+</h4>
+<pre>Structure =
+3/8
+Couplet : Il était un petit navire 
+Couplet =
+1: Gm . F . Gm .
+1: Gm . D . Em .
+1: Em .
+1: D . .
+1: F . .
+1: Gm . .</pre>
+<p>Si on l'exporte, par exemple dans le dossier <tt>"…Archive"</tt> : <br />
+- un dossier est créé dans <tt>"…Archive"</tt> nommé par exemple :<br /> &nbsp; &nbsp; <tt>"2017-07-22-091518-Petit Navire"</tt> <br />
+	- qui contiendra le fichier <tt>"Petit Navire.chanson"</tt></p>
+<p>Le nom de dossier <tt>"2017-07-22-091518-C"</tt> signifie que l'exportation a été effectuée le 22/07/2017 à 9h5mn18s</p>
+<p>Le fichier <tt>"Petit Navire.chanson"</tt> est un fichier texte contenant le nom de la chanson <tt>"Petit Navire"</tt> sur la première ligne suivi par le code ci-dessus.</p>
+<p><b><i>L'exportation d'un Chapitre exporte, de la même façon, toutes les Chansons qu'il contient dans un même dossier.</i></b></p>
+
+<p>Toutes les chansons du chapitre <tt>"Divers"</tt>, seront enregistrées dans un dossier nommé, par exemple :<br /> &nbsp; &nbsp; <tt>"2017-07-22-091725-[Divers]"</tt></p>
+<hr />
+<h2>
+	Importation 
+</h2>
+<p>Menu: <tt>"Fichier/Importer des Chansons…"<tt> </p>
+<p>Lors d'une Importation de Chansons un dialogue demande de sélectionner un ou plusieurs fichiers de Chansons, avec l'extension <tt>".chanson"</tt> <br />
+	Les Chansons importées seront toutes placées dans le chapitre sélectionné.</p>
+<p><i>En cas de conflits sur les noms des chansons importées un suffixe "-copie" est ajouté au nom et une alerte est affichée dans la consolle.</i></p>
+<hr />
+<h2>
+	Préférences : Dossier d'archivage 
+</h2>
+<p>Pour les import-export, il est vivement conseillé de choisir un dossier d'archivage personnel unique qui permettra de faciliter les transferts de données entre utilisateurs de "Grille Accords"</p>
+<p>Ce dossier peut être enregistré dans les Préférence de l'application :</p>
+<p>Menu: <tt>"Grille Accords/Préférences…"<tt> </p>
+<p>Une fois enregistré dans les Préférences, ce dossier sera automatiquement proposé par défaut dans les dialogues de sélection de fichiers ou dossier.</p>
+
+</body>
+</html>

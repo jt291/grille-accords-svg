@@ -1,0 +1,13 @@
+Cruel Sister
+	Structure:
+		3/4 n=81 
+		Couplet : There lived a lady
+		Couplet : One grew as fair True
+		Couplet : A knight came riding True
+		Couplet : He courted one True
+		Couplet : Oh Sister, sister True
+		Couplet : And as they walked True
+	Couplet:
+		3: Dm C Dm Am
+		Dm 2/4 2: C 3/4 2: Bb 1: C 4/4 4: G
+			

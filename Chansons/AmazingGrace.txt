@@ -1,0 +1,22 @@
+Amazing Grace
+
+	Structure:
+		3/4 n=72 
+		Couplet : Amazing Grace how sweet the sound
+		Couplet : t was grace that taught my heart to fear
+		Fin : Through many dangers toils and snares 
+		
+	Couplet:
+		3: G G9 C 2: G 1: D7sus4 
+		3: Em7 A9 Dsus4 D
+		G G7 C 2: G 1: D#dim 
+		2: Em7 1: Adim 2: G 1: Am 3: C2 G
+	Fin:
+		3: G G9 C 2: G 1: D7sus4 
+		3: Em7 A9 Dsus4 D
+		G G7 C 2: G 1: D#dim
+		2: Em7 1: Adim 2: G 1: D#dim 3: Em7 A9
+		2: G 1: Am 2: G 1: B7 3: Em A7
+		2: G 1: Am 2: G 1: D7 3: C G
+		
+			

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<link href="HelpStyles.css" rel="stylesheet" type="text/css" media="all" />
+</head>
+<body>
+<div class="entete">
+	<a href="GrilleAccordsHelp.html">Aide Grille Accords</a> 
+</div>
+<div id="toc_0" class="titrePage">
+	<a href="GrilleAccordsHelp.html"><img width="48" height="48" src="images/GrilleAccords-64.png" alt="" /></a> &nbsp; Langage de description 
+</div>
+<hr />
+<h3>
+	Langage de description de grille d'accords 
+</h3>
+<p>Une grille d'accords d'une chanson est une sorte de partition simplifiée destinée à des musiciens accompagnateurs, par exemple des guitaristes ou des pianistes. Elle indique quel accord jouer à quel moment. Le musicien reste libre de la façon dont il joue l'accord (le &quot;renversement&quot;) et des détails de l'exécution ryhmique (il peut jouer une seule fois l'accord pendant le temps indiqué, ou plusieurs fois, avec différents accents rythmiques). </p>
+<p>Il existe différents formats de grilles d'accords, adaptés à différents styles de musique (jazz, country, pop, rock, etc.). Le format choisi ici se rapproche un peu d'une partition simplifiée, avec des lignes et des mesures.</p>
+<hr />
+<div>
+	<b>Rubriques</b>
+</div>
+<ul>
+	<li><a href="#toc_1">Ligne</a><br />
+	</li>
+	<li><a href="#toc_2">Structure d'un morceau</a><br />
+	</li>
+	<li><a href="#toc_3">Définition de la structure</a><br />
+	</li>
+	<li><a href="#toc_4">Les grilles de parties</a><br />
+	</li>
+	<li><a href="#toc_5">Durée des accords</a><br />
+	</li>
+	<li><a href="#toc_6">Signatures rythmiques</a><br />
+	</li>
+	<li><a href="#toc_7">Symboles d'accords</a><br />
+	</li>
+	<li><a href="#toc_17">Erreurs</a><br />
+	</li>
+</ul>
+<p id="toc_1">&nbsp;</p>
+<hr />
+<h2>
+	Ligne &nbsp; <a href="#toc_0">☝︎</a> 
+</h2>
+<p>Voici un exemple de ligne :</p>
+<p><img src="images/1.jpg" alt=""></p>
+<p>Cette ligne comporte 4 mesures. Chaque mesure comporte ici 4 temps. Sur chaque temps on peut indiquer un nom d'accord (par exemple <code>Gm</code>, c'est-à-dire l'accord mineur de Sol en notation anglo-saxonne) ou un point signifiant que le dernier accord est toujours en vigueur.</p>
+<p>Ce qu'on voit ici est le &quot;rendu typographique&quot; final. L'utilisateur n'a pas à dessiner lui-même ce rendu. Il est engendré à partir d'un texte qui décrit de manière compacte ce qu'on souhaite.</p>
+<p>Par exemple, la ligne ci-dessus peut être obtenue à partir d'une ligne de texte :</p>
+<div>
+	<pre><code class="language-none">4: Gm Bm E9 G6</code></pre>
+</div>
+<p>Le <code>4:</code> initial signifie que chaque accord écrit dans cette ligne de texte va occuper 4 temps dans la grille.</p>
+<p>Le fait qu'une mesure dure 4 temps peut être indiqué au début du morceau par l'indication de la signature rythmique : </p>
+<pre><code>4/4</code></pre>
+<p id="toc_2">&nbsp;</p>
+<hr />
+<h2>
+	Structure d'un morceau &nbsp; <a href="#toc_0">☝</a> 
+</h2>
+<p>Un morceau n'est pas un bloc monolithique de lignes. Il a une structure : il est divisé en parties portant chacune un nom distinctif comme &quot;Intro&quot;, &quot;Couplet&quot;, &quot;Refrain&quot;, &quot;Pont&quot;, etc. Ces noms sont choisis librement. De plus les parties peuvent se répéter : il peut y avoir plusieurs couplets, le refrain peut être joué plusieurs fois, etc. Chaque partie a une grille, et à chaque répétition on jouera la même grille. Les paroles peuvent changer d'une répétition à l'autre mais cela ne concerne pas vraiment les accompagnateurs.</p>
+<p>Pour éviter d'avoir à écrire la même grille plusieurs fois dans la description du morceau, on sépare cette description en blocs :</p>
+<ul>
+	<li>un bloc de structure, où on indique dans quel ordre les parties sont jouées, avec quelles répétitions.</li>
+	<li>pour chaque partie, un bloc qui définit la grille de la partie, sous forme de lignes comme on a vu précédemment.</li>
+</ul>
+<p>Voici un exemple minimal. Le texte qui décrit le morceau est le suivant :</p>
+<div>
+	<pre><code class="language-none">Structure =
+4/4 n=120
+Couplet : premier couplet
+Refrain : premier refrain
+Couplet : deuxième couplet
+Refrain : deuxième refrain
+
+Couplet =
+C . Am . Dm7 . G7 .
+
+Refrain =
+2: F C 4: G D7 1: G 3: NC</code></pre>
+</div>
+<p>Ce texte engendre la grille suivante :</p>
+<p><img src="images/2.jpg" alt=""></p>
+<p id="toc_3">&nbsp;</p>
+<hr />
+<h2>
+	Définition de la structure &nbsp; <a href="#toc_0">☝</a> 
+</h2>
+<p>Le bloc de structure commence par une ligne </p>
+<div>
+	<pre><code class="language-none">Structure =</code></pre>
+</div>
+<p>Puis sur la ligne suivante, on indique la signature rythmique (obligatoire), comme <code>4/4</code> puis le tempo (facultatif), comme <code>n=120</code> (120 noires par minute).</p>
+<div>
+	<pre><code class="language-none">4/4 n=120</code></pre>
+</div>
+<p>Ensuite chaque ligne représente l'exécution d'une certaine partie. Pour cela on écrit le nom de la partie, suivi de <code>:</code>, puis sur le reste de la ligne un texte quelconque permettant au musicien de se repérer par rapport au reste du groupe, comme par exemple le début des paroles ou tout commentaire approprié. Par exemple ici :</p>
+<div>
+	<pre><code class="language-none">Couplet : premier couplet</code></pre>
+</div>
+<p id="toc_4">&nbsp;</p>
+<hr />
+<h2>
+	Les grilles de parties &nbsp; <a href="#toc_0">☝</a> 
+</h2>
+<p>Après la structure viennent les grilles des différentes parties, comme par exemple :</p>
+<div>
+	<pre><code class="language-none">Couplet =
+C . Am . Dm7 . G7 .</code></pre>
+</div>
+<p>La première ligne est le nom de la partie suivi de &quot;=&quot;</p>
+<p>Ensuite viennent les lignes d'accords. Chaque accord qu'on écrit dure par défaut le nombre de temps associé à la signature rythmique du morceau. Ici la signature est <code>4/4</code>, le nombre de temps associé est 4 (une mesure contient 4 temps dont chaque temps est une noire).</p>
+<p>Lorsqu'on écrit un point <code>.</code> cela signifie qu'il faut répéter la mesure précédente, ce qui se traduira dans le rendu typographique par le symbole conventionnel <code>%</code>.</p>
+<p>Dans l'exemple précédent, le couplet n'a qu'une ligne mais on peut bien sûr écrire plusieurs lignes.</p>
+<p>Les différents symboles qu'on peut écrire dans une ligne sont détaillés plus loin.</p>
+<p id="toc_5">&nbsp;</p>
+<hr />
+<h2>
+	Durée des accords &nbsp; <a href="#toc_0">☝</a> 
+</h2>
+<p>Par défaut, un accord dure le nombre de temps associé à la signature rythmique. Mais on peut changer temporairement cette durée. Si la signature est <code>4/4</code> mais si on veut indiquer qu'un certain accord dure 2 temps, on écrira avant l'accord <code>2:</code>. Cette modification vaut pour toute la suite de la ligne, du moins jusqu'à la prochaine modification de ce type.</p>
+<p>Dans l'exemple, on le voit dans le refrain :</p>
+<div>
+	<pre><code class="language-none">2: F C 4: G D7 1: G 3: NC</code></pre>
+</div>
+<p><code>F</code> et <code>C</code> durent 2 temps chacun, ce qui forme une mesure complète. Puis on revient à 4 temps pour <code>G</code> et <code>D7</code>, puis on passe à 1 temps pour <code>G</code>, puis 3 temps pour <code>NC</code> (No Chord, c'est-à-dire un silence). Le rendu est le suivant :</p>
+<p><img src="images/3.jpg" alt=""></p>
+<p>A chaque ligne, on revient à la durée par défaut. C'est celle qui est associée à la signature rythmique en vigueur à cet endroit. Au départ, c'est la signature initiale indiquée dans la structure. Mais la signature peut changer au début d'une ligne ou même à l'intérieur d'une ligne.</p>
+<p>Par exemple :</p>
+<div>
+	<pre><code class="language-none">3/4 1: G Am G  4/4 4: G 1: C A7 D B7 2: Em Em7M
+2/4 1: D A7  4/4 2: C Cm G A7 D7 G</code></pre>
+</div>
+<p>Ce qui donnera le rendu suivant :</p>
+<p><img src="images/4.jpg" alt=""></p>
+<p>les durées indiquées ne peuvent pas être choisies entièrement librement : l'accumulation de durées doit toujours reformer des mesures entières.</p>
+<p>Par exemple, avec une signature de <code>4/4</code>, les lignes suivantes sont incorrectes :</p>
+<p>Dépassement de mesure : <code>2: C 3: F</code>. On accumule 5 temps, ce qui dépasse la mesure à 4 temps.</p>
+<p>Mesure incomplète : <code>1: C 2: F</code>. Si c'est la fin de la ligne, on a accumulé seulement 3 temps, ce qui est insuffisant pour une mesure à 4 temps.</p>
+<p id="toc_6">&nbsp;</p>
+<hr />
+<h2>
+	Signatures rythmiques &nbsp; <a href="#toc_0">☝</a> 
+</h2>
+<p>Une signature rythmique s'écrit avec deux nombres séparés par &quot;/&quot;, comme par exemple <code>4/4</code>.</p>
+<p>A chaque signature sont associés un nombre de temps et la durée d'un temps. Pour certaines signatures fréquemment utilisées, on a les conventions suivantes :</p>
+<ul>
+	<li><code>2/4</code> : 2 noires</li>
+	<li><code>3/4</code> : 3 noires</li>
+	<li><code>4/4</code> : 4 noires</li>
+	<li><code>3/8</code> : une noire pointée</li>
+	<li><code>6/8</code> : 2 noires pointées</li>
+	<li><code>9/8</code> : 3 noires pointées</li>
+	<li><code>12/8</code> : 4 noires pointées</li>
+</ul>
+<p>Mais pour le rendu d'une grille, la seule information importante est le nombre de temps par mesure.</p>
+<p>Dans les autres cas de signature, c'est le premier nombre. Par exemple pour <code>5/4</code>, c'est 5.</p>
+<p>Si on place ce symbole au milieu d'une ligne d'accords, il faut impérativement qu'il soit placé après une mesure complète. Le changement de signature ne peut pas se faire à l'intérieur d'une mesure. Par exemple, pour une mesure à 4/4, la ligne suivante serait incorrecte : <code>3: G 3/4</code>. La mesure n'est pas finie après le <code>G</code> (il manque un temps), on ne peut pas placer le symbole.</p>
+<p id="toc_7">&nbsp;</p>
+<hr />
+<h2>
+	Symboles d'accords &nbsp; <a href="#toc_0">☝</a> 
+</h2>
+<p>En musique, il y a de nombreux types d'accords possibles et différentes façons de les noter. On s'est limité ici aux plus usuels.</p>
+<p>On écrit d'abord le nom de la note fondamentale de l'accord, en majuscule (comme <code>A</code>, <code>C#</code>, <code>Eb</code>).</p>
+<p>Ensuite on ajoute une indication du type de l'accord (majeur, mineur, etc.) :</p>
+<h3 id="toc_8">
+	Les types d'accords à 3 notes 
+</h3>
+<ul>
+	<li>pas de type explicite : accord majeur. Par exemple <code>C</code> désigne l'accord de Do majeur, de notes Do Mi Sol.</li>
+	<li><code>m</code> : accord mineur. <code>Cm</code> = Do Mib Sol</li>
+	<li><code>sus2</code> : suspension sur la seconde. <code>Csus2</code> = Do Ré Sol</li>
+	<li><code>2</code> : comme sus2</li>
+	<li><code>sus4</code> : suspension sur la quarte. <code>Csus4</code> = Do Fa Sol</li>
+	<li><code>4</code> : comme sus4</li>
+	<li><code>dim</code> : diminué. <code>Cdim</code> = Do Mib Solb</li>
+	<li><code>+5</code> : quinte augmentée. <code>C+5</code> = Do Mi Sol#</li>
+</ul>
+<hr />
+<h3 id="toc_9">
+	Les types d'accords à 4 notes 
+</h3>
+<ul>
+	<li><code>7</code> : accord de septième. <code>C7</code> = Do Mi Sol Sib</li>
+	<li><code>m7</code> : accord mineur septième. <code>Cm7</code> = Do Mib Sol Sib</li>
+	<li><code>7sus2</code> : septième avec suspension sur la seconde. <code>C7sus2</code> = Do Ré Sol Sib</li>
+	<li><code>7sus4</code> : septième avec suspension sur la quarte. <code>C7sus4</code> = Do Fa Sol Sib</li>
+	<li><code>M7</code> : majeur avec septième majeure : <code>CM7</code> = Do Mi Sol SI</li>
+	<li><code>m7M</code> : mineur avec septième majeure : <code>Cm7M</code> = Do Mib Sol SI</li>
+	<li><code>dim7</code> : septième diminuée . <code>Cdim7</code> = Do Mib Solb Sibb, ou si on veut Do Mib Solb La</li>
+	<li><code>m7b5</code> : mineur septième avec quinte diminuée. <code>Cm7b5</code> = Do Mib Solb Sib. Appelé aussi &quot;demi-diminué&quot;.</li>
+	<li><code>6</code> : majeur avec sixte. <code>C6</code> = Do Mi Sol La.</li>
+	<li><code>m6</code> : mineur avec sixte. <code>Cm6</code> = Do Mib Sol La</li>
+	<li><code>add2</code> : majeur avec addition de la seconde. <code>Cadd2</code> = Do Ré Mi Sol</li>
+</ul>
+<h3 id="toc_10">
+	Les types d'accord à 5 notes 
+</h3>
+<ul>
+	<li><code>9</code> : accord majeur avec septième et neuvième. <code>C9</code> = Do Mi Sol Sib Ré</li>
+	<li><code>m9</code> : accord mineur avec septième et neuvième. <code>Cm9</code> = Do Mib Sol Sib Ré</li>
+</ul>
+<p>Il existe d'autres types possibles, en particulier dans le jazz. Ils ne sont pas pris en compte ici.</p>
+<h3 id="toc_11">
+	L'indication de basse d'un accord 
+</h3>
+<p>Après un nom d'accord comme <code>D7</code>, on peut rajouter une indication de basse à jouer, comme <code>/F#</code>, ce qui donne <code>D7/F#</code> : accord de Ré septième sur une basse de Fa#.</p>
+<hr />
+<p id="toc_12">&nbsp;</p>
+<hr />
+<h2>
+	Symboles divers &nbsp; <a href="#toc_0">☝</a> 
+</h2>
+<h3 id="toc_13">
+	Tempo 
+</h3>
+<p>Un exemple d'indication de tempo est <code>n=120</code>. Le <code>n</code> indique une durée de référence, ici une noire, 120 représente le nombre par minute : 120 noires par minute. Les durées de référence sont au nombre de trois :</p>
+<ul>
+	<li><code>n</code>: noire</li>
+	<li><code>b</code>: blanche</li>
+	<li><code>np</code> : noire pointée </li>
+</ul>
+<p>Donc on pourra écrire par exemple : <code>n=120</code>, <code>b=60</code>, <code>np=80</code>. Ces trois indications sont en fait équivalentes du point de vue de l'exécution : puisqu'une blanche vaut deux noires, il y a deux fois moins de blanches que de noires, donc 60 au lieu de 120.</p>
+<h3 id="toc_14">
+	Silence : NC 
+</h3>
+<p>Pour indiquer qu'il ne faut pas jouer d'accord, on écrit le symbole <code>NC</code> (No Chord).</p>
+<h3 id="toc_15">
+	Répétition de mesure : &quot;.&quot; 
+</h3>
+<p>Pour indiquer qu'il faut jouer une mesure identique à la mesure précédente, on écrit juste un point : <code>.</code>. On ne peut placer ce symbole qu'à un endroit où on vient de terminer une mesure. Par exemple, pour une mesure à 4/4 :</p>
+<div>
+	<pre><code class="language-none">D G .</code></pre>
+</div>
+<p>On joue une mesure de <code>D</code>, puis une mesure de <code>G</code> et ensuite on répète la dernière mesure jouée, c'est-à-dire <code>G</code>. A l'exécution, l'effet est le même que si on avait écrit :</p>
+<div>
+	<pre><code class="language-none">D G G</code></pre>
+</div>
+<p>Mais cette dernière notation est un peu plus chargée, alors que l'autre facilite la lecture.</p>
+<p>Dans le rendu typographique de la grille figurera le symbole <code>%</code>, conventionnel pour exprimer la répétition.</p>
+<p>Ce symbole ne peut être placé qu'après une mesure complète. Par exemple, pour une mesure à 4/4, la ligne suivante serait incorrecte : <code>3: G .</code> La mesure n'est pas finie (il manque un temps), on ne peut pas placer le symbole. De même ce symbole ne peut pas être le premier d'une ligne, il faut qu'il y ait une mesure avant.</p>
+<h3 id="toc_16">
+	Partie non développée : <code>/</code> 
+</h3>
+<p>Par défaut, chaque fois qu'on écrit dans la structure une référence à une partie, comme <code>Couplet: premier couplet</code>, la grille de cette partie sera développée dans le rendu final. Mais il se peut qu'on ne souhaite pas développer cette partie, pour des raisons d'encombrement ou de lisibilité. Pour indiquer cela, il suffit de terminer la référence à la partie par le symbole <code>/</code>, comme <code>Couplet: premier couplet /</code>. Dans le rendu final apparaîtra seulement l'en-tête de partie : <code>Couplet : premier couplet</code>, il ne sera pas suivi par la grille de la partie.</p>
+<hr />
+<p id="toc_17">&nbsp;</p>
+<hr />
+<h2>
+	Erreurs &nbsp; <a href="#toc_0">☝</a> 
+</h2>
+<p>Lorsqu'on tape le texte source d'une grille, il arrive qu'on fasse des erreurs ... Voici les principales erreurs qu'on peut rencontrer :</p>
+<ul>
+	<li>caractère invalide. Tous les caractères ne sont pas autorisés n'importe où. Dans les textes en particulier, on se limite aux lettres, aux chiffres et aux différents symboles de ponctuation.</li>
+	<li>accord mal écrit. Dans les accords, les noms des notes sont en majuscules. <code>Bm</code> est valide, mais pas <code>bm</code>. Les types d'accord sont répertoriés ci-dessus, on ne peut pas en écrire d'autres.</li>
+	<li>structure non respectée : le morceau doit commencer par un bloc de structure, puis continuer avec les blocs de définition des différentes parties. En particulier on doit toujours commencer par le bloc de structure, dont la première ligne doit être <code>Structure =</code>.</li>
+	<li>symbole mal écrit : les différents symboles (tempo, signature, silence, répétition) ont une syntaxe précise à respecter, définie plus haut.</li>
+	<li>symbole ou texte mal placé. On ne peut pas écrire n'importe quoi n'importe où.</li>
+	<li>ligne mal structurée. En particulier, dans la structure, la référence à une partie exige que le nom de la partie à jouer soit suivi de deux-points puis d'un texte non vide, comme <code>Couplet: premier couplet</code>. Et dans un bloc de définition de partie, la première ligne doit être le nom de la partie suivi de <code>=</code>, comme <code>Couplet =</code></li>
+	<li>mesure incomplète. Cela se produit lorsqu'on termine une ligne et que le nombre de temps est inférieur à celui de la mesure. Par exemple, pour une mesure à 4/4, <code>2: G 1: D</code>. Il n'y a que 3 temps alors qu'on en attend 4. Cela peut aussi se produire quand on place mal un symbole qui doit impérativement se placer entre deux mesures, comme la répétition de mesure (<code>.</code>) ou le changement de signature (<code>3/4</code>). Par exemple, la ligne suivante produit une erreur : <code>2: G 1: D .</code>. La mesure n'est pas finie, on ne peut pas placer le symbole <code>.</code></li>
+	<li>dépassement de mesure. Cela se produit lorsque le nombre de temps accumulé dépasse la longueur de la mesure, par exemple pour une mesure à 4/4 : <code>3: G D</code>. Il y a 6 temps, ce qui dépasse 4. Dans une vraie partition, on pourrait écrire un symbole de liaison pour dire que la note commence dans une mesure et se prolonge sur la suivante, mais on ne dispose pas de ce formalisme ici. Il ne doit pas y avoir de chevauchement de mesure.</li>
+</ul>
+<!-- 
+<script type="text/x-mathjax-config">	(function () {
+	
+	MathJax.Hub.Config({
+		'showProcessingMessages': false,
+		'messageStyle': 'none'
+	});
+	
+	if (typeof MathJaxListener !== 'undefined') {
+		MathJax.Hub.Register.StartupHook('End', function () {
+			MathJaxListener.invokeCallbackForKey_('End');
+		});
+	}
+	
+	})();
+</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+ -->
+</body>
+</html>

@@ -1,0 +1,20 @@
+Comment commencer
+	Structure:
+		4/4 n=120
+		Couplet : 1
+		Couplet : 2 
+		Couplet : 3 
+		Fin : fin
+		
+	Couplet:
+		4: E G# A6 C 
+		4: E G# B F#m
+		4: C#m 2: B A7 2: E 1: E7 A 4: C
+ 		
+	Fin:
+		4: C . Cdim . Em .
+		2: B B7 B6 F#m 4: C#m B
+		2: A E A E A E A E
+		2: A CM7 4: E
+
+			

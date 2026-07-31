@@ -1,0 +1,13 @@
+Personality
+	Structure:
+		4/4 n=120
+		Couplet : When Madam Pompadour
+		Couplet : And think of all the books
+		Pont : What did Romeo see
+		Couplet : And when Salome danced
+	Couplet:
+		4: A7 Cm 2: G C Bm E7
+		Am D7 G E7 Am D7 4: G
+	Pont:
+		4: Dm G7 C Am6 
+		4:  B7 4: Em Am7  D7

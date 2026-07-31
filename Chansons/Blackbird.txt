@@ -1,0 +1,32 @@
+Blackbird
+	Structure:
+		4/4 n=92
+		Intro : instrumental
+		Couplet : Blackbird singing --- to arise
+		Intermede : sifflé
+		Couplet : Blackbird singing --- to be free
+		Intermede : sifflé
+		Pont : Blackbird fly --- dark black night
+		Couplet : sans paroles
+		Couplet : sifflé True
+		Pont : Blackbird fly
+		Intermede2 : instrumental
+		Couplet : Blackbird singing --- to arise
+		Fin : instrumental
+	Intro:
+		3/4 1: G Am G 4/4 4: G
+	Couplet:
+		3/4 1: G Am G 4/4 4: G 1: C A7 D B7 2: Em Em7M
+		2/4 1: D A7 4/4 2: C Cm G A7 D7 G
+	Intermede:
+		1: C G 2: A7 D7 G
+	Pont:
+		1: F C Dm C 2: Bb C
+		1: F C Dm C 2: Bb A7 2/4 D7sus4
+	Intermede2:
+		3/4 1: G Am G 4/4 4: G G G G
+		1: G Am G C G A7 2: D7
+	Fin:
+		1: C G 2: A7 D7 G
+		1: C G 2: A7 D7 G
+		

@@ -1,0 +1,21 @@
+Chaque fois
+	Structure:
+		4/4 n=130
+		Couplet : Peut-être que je me trompe
+		Refrain : Chaque fois
+		Couplet : Peut-être que je me trompe
+		Refrain : Sauf erreur
+	Couplet:
+		4: D . Em .
+		Gm Bm E9 G6
+		A7 Bm A7 Bm
+		Dm Am 2: G D 4: A
+	Refrain:
+		4: Bm . F#m .
+		Bm . F#m .
+		Em . A7  .
+		D DM7 Bm A7
+		Bm . F#m .
+		Bm . F#m .
+		Em . A7 . 
+		Em F#m D .

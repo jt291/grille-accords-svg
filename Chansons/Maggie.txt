@@ -1,0 +1,29 @@
+Maggie
+	Structure:
+		4/4 n=185 
+		Couplet : Instrumental
+		Couplet : Maggie I ken --- about yer feet
+		Couplet : i ken nae waefu --- ye left
+		Refrain : Thae nichts an days --- Id hae ye rest
+		Couplet : Yer hert --- aside the fire 
+		Refrain : a cappella The sky is keen --- to let it gang 
+		Instrumental : Instrumental
+		Instrumental : Instrumental
+		Refrain  : The sky is keen --- to let it gang 
+		Couplet : But times drives forrit --- yell na forget
+		Fin:  instrumental
+		
+	Couplet:
+		4: D 2: G A 4: Bm . Am Em  .
+		Bm D A . C D .
+	Refrain:
+		4: D A Em . 2: F#m G 4: A
+		4: D A Em  . 2: F G 4: Am
+		F G .
+	Fin:
+		4: C D . C D .
+	Instrumental:
+		4: D C G D 
+		D C C D
+		
+			

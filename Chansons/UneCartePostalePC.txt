@@ -1,0 +1,37 @@
+Une carte postale
+	Structure:
+		3/4 n=150
+		Intro : guitare puis basse
+		Couplet-refrain-pont : -
+		Couplet-refrain-pont : -
+		Couplet: -
+		PetitPont: instrumental
+		Refrain: -
+		Refrain : instrumental
+		Refrain : instrumental True
+	Intro:
+		3: CM7 C#dim Dm G7
+		CM7 C#dim Dm G7
+	Refrain:
+		3: EbM7 EbM7 Fm7 Fm7
+		Bb7 Bb7 EbM7 EbM7
+		EbM7 EbM7 Fm7 Fm7
+		Bb7 Bb7 G G
+	Couplet:
+		3: CM7 C#dim Dm D#dim
+		Em A7 Dm G7
+		CM7 C#dim Dm D#dim
+		Em A7 Dm G7
+	Pont:
+		3: CM7 CM7 Dm Dm
+		G7 G7 CM7 CM7
+		CM7 CM7 Dm Dm
+		G7 G7 CM7 CM7
+	Couplet-refrain-pont:
+		.
+		.
+		.
+	PetitPont:
+		3: EbM7 EbM7 Fm7 Fm7
+		Bb7 Bb7 EbM7 EbM7
+		

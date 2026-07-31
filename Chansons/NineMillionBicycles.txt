@@ -1,0 +1,31 @@
+Nine Million Bicycles
+	Structure:
+		4/4 n=164
+		Intro : 12 mesures
+		Couplet : There are nine million bicycles in Beijin
+		Couplet : We are twelve billion light years from the edge
+		Refrain : I'm warmed by the fire
+		Couplet : There are six 
+		Guitare : 22 mesures
+		Refrain : ---
+		Fin : There are nine
+	Intro:
+		4: C C4 C4 . 
+		4: C C4 C4 .
+		4: C . C .
+	Guitare:
+		4: C . Em . Dm . F . 
+		4: Dm G C Dm/C Dm/C .
+		4: C C4 C4 . 
+		4: C . C .
+	Couplet:
+		4: C . Em . Dm . F . 
+		4: Dm G C . C .
+	Refrain:
+		4: Fm C G Am . 
+		4: Fm C D . G . 
+	Fin:
+		4: C . Em . Dm . F . 
+		4: Dm G C Dm/C Dm/C Am
+		4: Dm G C Dm/C Dm/C Am
+		4: Dm G C . C . C

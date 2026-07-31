@@ -1,0 +1,20 @@
+Svatba
+	Structure:
+		4/4 n=180 
+		Partie A : Zadade-se Stoiane-le
+		Partie B : Ne mi bilo
+		Khe : Khe du ba du ba khe
+	Partie A:
+		2: E Esus4 Esus4 E 2: E B7sus4 B7sus4 E 
+		4: Dm 2: Am E 4: Dm 2: Am E
+		4: Fdim E Fdim Am
+	Partie B:
+		4: nc nc nc nc
+		Am 2: D G Dm Am Dm Dm6
+		G Dm6 Am Dm6 E Esus4 E Dm
+		G Dm6 Am Esus4 4: Dm6 .
+		 6/4 6: Esus4 4/4 4: Esus4 6/4 6: E
+	Khe:
+		4/4 4: E7sus4 . . .
+		4: Dm Am E7sus4
+			

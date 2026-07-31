@@ -1,0 +1,16 @@
+Le tango stupéfiant
+	Structure:
+		4/4 n=115 
+		Couplet : Après trois semaines entières
+		Couplet : Dès lors mon âme torturée True
+		Couplet : Qu'ai-je fait là Jésus Marie True
+		
+	Couplet:
+		4: Dm 3:  Gm  1: C7 4: F 2: Gm A7
+		4: Dm 3:  Gm  1: C7 4: F 2: A7 E7 1: A7 E7 2: A7 
+		4: Gm 1: A7 E7 2: A7  4: Gm A7
+		4: Dm Gm A7 1: Bbdim Dm  Bbdim Dm
+		4: Dm 2: Gm6 A7 4: E7 A7
+		1: Dm Bb A A 4: Dm
+		
+			

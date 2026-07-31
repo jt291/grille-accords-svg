@@ -1,0 +1,23 @@
+Suddenly I See
+	Structure:
+		4/4 n=200
+		Guitare : -
+		Couplet : Her face is a map of the world
+		Refrain : Suddenly I see
+		Guitare:   -
+		Couplet : I feel like walking the world
+		Refrain : Suddenly I see
+		Guitare : 4 fois - And shes taller than most
+		Refrain : 2 fois - Suddenly I see
+		Fin : -
+	Guitare:
+		4: D2 C2 D2 2: C2 G 4: D2 C2 D2 2: C2 G
+	Couplet:
+		4: D2 C2 D2 2: C2 G 4: D2 C2 D2 2: C2 G
+		4: G A F#m Bm 4: G A F#m Bm
+		4: G G Gm Gm D D
+	Refrain:
+		4: Bm F# G D Bm F# Gm C4
+		4: Bm F# G D Bm F# Gm C4
+	Fin:
+		4: D

@@ -1,0 +1,16 @@
+Shadows
+	Structure:
+		4/4 n=100
+		Couplet : Let me reach out Love
+		Refrain : Let it go
+		Couplet : Wont you lie down me baby
+		Refrain : Set it free
+		Couplet : Please kiss me gently darlin
+		Refrain : Let it go
+	Couplet:
+		4: G  D 2: Em Em7 A C
+		4: G D Bm  4: C .
+	Refrain:
+		2: G G7 Em Em7 4: C 2: C A
+		4: G Bm 2: Em Em7 4: C .
+		G . . .

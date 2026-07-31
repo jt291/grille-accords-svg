@@ -1,0 +1,19 @@
+You can close your eyes
+
+Structure:
+4/4 n=137
+Couplet: Well the sun is surely sinkng down
+Refrain: So close your eyes
+
+Couplet: 
+D 2: G D 4: A . Em 2: A  G 4: G 2: Em A
+D 2: G D 4: A . Em 2: A  D 2: G D 2: A D
+
+
+Refrain:
+Em A C G Bm .
+Em A C G Bm .
+2: Em D 4: G .
+2: Em D 2: G A 4: Bm .
+2: Em 1: F#m G G Em 2: A
+
