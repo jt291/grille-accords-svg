@@ -204,6 +204,15 @@ button:hover {
   border: 1px solid #c5c9bc;
   background: #f4f2e9;
 }
+.site-footer {
+  padding: 18px 4px 0;
+  color: #657066;
+  font:
+    500 11px / 1.4 DM Mono,
+    monospace;
+  letter-spacing: 0.04em;
+  text-align: center;
+}
 .source-panel,
 .preview-panel {
   min-width: 0;
@@ -579,6 +588,9 @@ svg {
   .source-panel,
   .preview-panel > .panel-title,
   .drawer-layer {
+    display: none;
+  }
+  .site-footer {
     display: none;
   }
   .workspace {

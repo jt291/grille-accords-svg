@@ -404,6 +404,9 @@ export default function App() {
           </div>
         </section>
       </div>
+      <footer className="site-footer">
+        Réalisé avec ChatGPT 5.6 Sol… en 2 h 30 !
+      </footer>
       {helpOpen && (
         <div className="drawer-layer">
           <section
