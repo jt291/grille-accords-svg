@@ -106,6 +106,37 @@ button:hover {
   clip-path: inset(50%);
   white-space: nowrap;
 }
+.github-link {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  margin-left: 2px;
+  border: 1px solid #667269;
+  border-radius: 50%;
+  color: #f2f3eb;
+  transition:
+    color 0.15s,
+    border-color 0.15s,
+    background 0.15s;
+}
+.github-link:hover,
+.github-link:focus-visible {
+  border-color: #f2f3eb;
+  background: #f2f3eb;
+  color: #172018;
+}
+.github-link img {
+  width: 21px;
+  height: 21px;
+  filter: invert(1);
+  transition: filter 0.15s;
+}
+.github-link:hover img,
+.github-link:focus-visible img {
+  filter: none;
+}
 .transport {
   display: flex;
   gap: 6px;

@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import githubMark from './assets/github-mark.svg'
 import { createMidiFile, type PlaybackController, playSong } from './audio'
 import { ChordChart } from './ChordChart'
 import { parseSong } from './parser'
@@ -264,6 +265,16 @@ export default function App() {
         <button type="button" onClick={exportMidi} disabled={errors > 0}>
           Exporter en MIDI ↓
         </button>
+        <a
+          className="github-link"
+          href="https://github.com/jt291/grille-accords-svg"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Voir les sources sur GitHub"
+          title="Voir les sources sur GitHub"
+        >
+          <img src={githubMark} alt="" />
+        </a>
       </section>
       <div
         className="workspace"
