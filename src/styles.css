@@ -13,10 +13,17 @@ body {
   min-width: 320px;
 }
 main {
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
-  padding: 28px clamp(18px, 4vw, 58px) 48px;
+  padding: 28px clamp(18px, 4vw, 58px) 16px;
   background:
     radial-gradient(circle at 80% 0, #f7cda3 0, transparent 28%), #e9eadf;
+}
+@supports (min-height: 100dvh) {
+  main {
+    min-height: 100dvh;
+  }
 }
 header {
   display: flex;
@@ -194,18 +201,19 @@ button:hover {
   background: #2b352d;
 }
 .workspace {
+  flex: 1 1 auto;
   display: grid;
   grid-template-columns: minmax(280px, var(--left-pane)) 8px minmax(
       400px,
       var(--right-pane)
     );
-  height: calc(100vh - 212px);
   min-height: 580px;
   border: 1px solid #c5c9bc;
   background: #f4f2e9;
 }
 .site-footer {
-  padding: 18px 4px 0;
+  flex: 0 0 auto;
+  padding: 12px 4px 0;
   color: #657066;
   font:
     500 11px / 1.4 DM Mono,
@@ -556,6 +564,7 @@ svg {
     margin: 0;
   }
   .workspace {
+    flex: none;
     grid-template-columns: 1fr;
     height: auto;
   }
