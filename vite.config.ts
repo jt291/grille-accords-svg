@@ -7,6 +7,9 @@ export default defineConfig({
   root: projectRoot,
   plugins: [react()],
   publicDir: false,
+  build: {
+    outDir: 'dist/client',
+  },
   server: {
     port: 4317,
     strictPort: true,
