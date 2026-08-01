@@ -85,6 +85,7 @@ function locateDiagnostic(source: string, line: number, message: string) {
 
 export default function App() {
   const [source, setSource] = useState(initial)
+  const [cursor, setCursor] = useState({ line: 1, column: 1 })
   const [selectedExample, setSelectedExample] = useState('')
   const [editorScroll, setEditorScroll] = useState(0)
   const [helpOpen, setHelpOpen] = useState(false)
@@ -123,6 +124,12 @@ export default function App() {
     (diagnostic) => diagnostic.severity === 'error',
   )
   const errorLines = new Set(errorDiagnostics.map(({ line }) => line))
+
+  const updateCursor = (editor: HTMLTextAreaElement) => {
+    const before = editor.value.slice(0, editor.selectionStart)
+    const rows = before.split('\n')
+    setCursor({ line: rows.length, column: (rows.at(-1)?.length ?? 0) + 1 })
+  }
 
   useEffect(() => {
     document.documentElement.lang = language
@@ -396,7 +403,8 @@ export default function App() {
                 }
               />
               <small>
-                {lineCount} {lineCount === 1 ? t.line : t.lines}
+                {lineCount} {lineCount === 1 ? t.line : t.lines} · {t.lineShort}{' '}
+                {cursor.line} · {t.columnShort} {cursor.column}
               </small>
             </div>
           </div>
@@ -406,23 +414,39 @@ export default function App() {
                 {source.split('\n').map((_, index) => (
                   <span
                     key={index}
-                    className={errorLines.has(index + 1) ? 'line-error' : ''}
+                    className={[
+                      errorLines.has(index + 1) ? 'line-error' : '',
+                      cursor.line === index + 1 ? 'line-active' : '',
+                    ]
+                      .filter(Boolean)
+                      .join(' ')}
                   >
                     {index + 1}
                   </span>
                 ))}
               </div>
             </div>
+            <div
+              className="active-line-highlight"
+              style={{
+                transform: `translateY(${22 + (cursor.line - 1) * 24 - editorScroll}px)`,
+              }}
+              aria-hidden="true"
+            />
             <textarea
               spellCheck={false}
               value={source}
               onChange={(event) => {
                 setSource(event.target.value)
                 setSelectedExample('')
+                updateCursor(event.currentTarget)
               }}
               onScroll={(event) =>
                 setEditorScroll(event.currentTarget.scrollTop)
               }
+              onSelect={(event) => updateCursor(event.currentTarget)}
+              onClick={(event) => updateCursor(event.currentTarget)}
+              onKeyUp={(event) => updateCursor(event.currentTarget)}
               aria-label={t.editorLabel}
             />
           </div>

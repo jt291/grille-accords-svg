@@ -330,6 +330,11 @@ select:focus-visible {
   height: 24px;
   padding-right: 12px;
 }
+.line-numbers .line-active:not(.line-error) {
+  background: #f4d9c7;
+  color: #713b28;
+  font-weight: 700;
+}
 .line-numbers .line-error {
   border-right: 4px solid #d33f2a;
   background: #ffe0d8;
@@ -340,7 +345,28 @@ select:focus-visible {
   background: #6b251d;
   color: #ffd2c7;
 }
+:root[data-theme="dark"] .line-numbers .line-active:not(.line-error) {
+  background: #554335;
+  color: #fff0e5;
+}
+.active-line-highlight {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  left: 51px;
+  height: 24px;
+  border-block: 1px solid #e8bda6;
+  background: #f8e6d8;
+  pointer-events: none;
+}
+:root[data-theme="dark"] .active-line-highlight {
+  border-color: #755b49;
+  background: #44382f;
+}
 textarea {
+  position: relative;
+  z-index: 2;
   resize: none;
   flex: 1;
   min-width: 0;
@@ -349,7 +375,7 @@ textarea {
   outline: 0;
   padding-block: 22px;
   padding-inline: 0.5rem;
-  background: var(--paper);
+  background: transparent;
   color: var(--ink);
   font:
     14px / 24px DM Mono,
