@@ -65,6 +65,23 @@ const slug = (title: string) =>
     .replace(/^-|-$/g, '')
     .toLowerCase() || 'grille'
 
+function locateDiagnostic(source: string, line: number, message: string) {
+  const text = source.split('\n')[line - 1] ?? ''
+  const tokens = [...text.matchAll(/\S+/g)]
+  const quoted = message.match(/«\s*(.*?)\s*»/)?.[1]
+  let tokenIndex = quoted
+    ? tokens.findIndex((token) => token[0] === quoted)
+    : tokens.length - 1
+  if (tokenIndex < 0) tokenIndex = Math.max(0, tokens.length - 1)
+  const symbol = tokens[tokenIndex]?.[0] ?? quoted ?? ''
+  const marked = tokens
+    .map((token, index) =>
+      index === tokenIndex ? `▶ ${token[0]} ◀` : token[0],
+    )
+    .join(' ')
+  return { marked: marked || text, position: tokenIndex + 1, symbol }
+}
+
 export default function App() {
   const [source, setSource] = useState(initial)
   const [selectedExample, setSelectedExample] = useState('')
@@ -101,6 +118,10 @@ export default function App() {
   ).length
   const lineCount = source.split('\n').length
   const t = messages[language]
+  const errorDiagnostics = song.diagnostics.filter(
+    (diagnostic) => diagnostic.severity === 'error',
+  )
+  const errorLines = new Set(errorDiagnostics.map(({ line }) => line))
 
   useEffect(() => {
     document.documentElement.lang = language
@@ -347,7 +368,12 @@ export default function App() {
             <div className="line-numbers" aria-hidden="true">
               <div style={{ transform: `translateY(${-editorScroll}px)` }}>
                 {source.split('\n').map((_, index) => (
-                  <span key={index}>{index + 1}</span>
+                  <span
+                    key={index}
+                    className={errorLines.has(index + 1) ? 'line-error' : ''}
+                  >
+                    {index + 1}
+                  </span>
                 ))}
               </div>
             </div>
@@ -526,8 +552,40 @@ export default function App() {
               />
             </fieldset>
           </div>
-          <div className="canvas" dir="ltr">
-            <ChordChart song={renderedSong} activeMeasureId={activeMeasureId} />
+          <div className={`canvas${errors ? ' canvas-error' : ''}`} dir="ltr">
+            {errors ? (
+              <div className="render-errors" role="alert">
+                <h2>{t.invalid}</h2>
+                <p>
+                  {errorDiagnostics.length}{' '}
+                  {errorDiagnostics.length === 1 ? t.diagnostic : t.diagnostics}
+                </p>
+                {errorDiagnostics.map((diagnostic, index) => {
+                  const detail = locateDiagnostic(
+                    source,
+                    diagnostic.line,
+                    diagnostic.message,
+                  )
+                  return (
+                    <article key={`${diagnostic.line}-${index}`}>
+                      <h3>
+                        {t.lineLabel} {diagnostic.line} · #{detail.position}
+                        {detail.symbol ? ` · « ${detail.symbol} »` : ''}
+                      </h3>
+                      <p>{diagnostic.message}</p>
+                      <pre>
+                        <code>{detail.marked}</code>
+                      </pre>
+                    </article>
+                  )
+                })}
+              </div>
+            ) : (
+              <ChordChart
+                song={renderedSong}
+                activeMeasureId={activeMeasureId}
+              />
+            )}
           </div>
         </section>
       </div>

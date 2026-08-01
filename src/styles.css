@@ -330,6 +330,16 @@ select:focus-visible {
   height: 24.5px;
   padding-right: 12px;
 }
+.line-numbers .line-error {
+  border-right: 4px solid #d33f2a;
+  background: #ffe0d8;
+  color: #b52518;
+  font-weight: 700;
+}
+:root[data-theme="dark"] .line-numbers .line-error {
+  background: #6b251d;
+  color: #ffd2c7;
+}
 textarea {
   resize: none;
   flex: 1;
@@ -348,15 +358,15 @@ textarea {
   overflow: auto;
 }
 .diagnostics {
-  max-height: 145px;
+  max-height: 230px;
   overflow: auto;
   border-top: 1px solid var(--line);
   background: var(--subtle);
   padding: 7px 18px;
-  font-size: 11px;
+  font-size: 13px;
 }
 .diagnostics p {
-  margin: 6px 0;
+  margin: 9px 0;
   color: #557159;
 }
 :root[data-theme="dark"] .diagnostics p {
@@ -450,6 +460,67 @@ textarea {
     linear-gradient(#d2d5ca 1px, transparent 1px),
     linear-gradient(90deg, #d2d5ca 1px, transparent 1px);
   background-size: 18px 18px;
+}
+.canvas-error {
+  display: grid;
+  place-items: start center;
+  background: var(--paper);
+  background-image: none;
+}
+.render-errors {
+  width: min(720px, 100%);
+  margin: 12px auto;
+  padding: clamp(18px, 3vw, 34px);
+  border: 3px solid #c33b27;
+  border-radius: 10px;
+  background: #fff8f5;
+  color: #351714;
+  box-shadow: 0 16px 42px #6b170f26;
+}
+.render-errors > h2 {
+  margin: 0;
+  color: #b52518;
+  font:
+    38px / 1 Instrument Serif,
+    serif;
+}
+.render-errors > p {
+  margin: 7px 0 20px;
+  color: #8d3529;
+  font-weight: 700;
+}
+.render-errors article {
+  padding: 14px 0;
+  border-top: 1px solid #e8b3aa;
+}
+.render-errors h3,
+.render-errors article p {
+  margin: 0 0 8px;
+}
+.render-errors pre {
+  margin: 0;
+  overflow: auto;
+  padding: 12px;
+  border-left: 5px solid #d33f2a;
+  background: #f5e4df;
+  color: #321511;
+  font:
+    600 13px / 1.6 DM Mono,
+    monospace;
+  white-space: pre-wrap;
+}
+:root[data-theme="dark"] .render-errors {
+  border-color: #ff8f78;
+  background: #321c19;
+  color: #fff1ed;
+}
+:root[data-theme="dark"] .render-errors > h2,
+:root[data-theme="dark"] .render-errors > p {
+  color: #ffad9b;
+}
+:root[data-theme="dark"] .render-errors pre {
+  background: #4a2924;
+  color: #fff4f0;
 }
 :root[data-theme="dark"] .canvas {
   background-color: #303832;

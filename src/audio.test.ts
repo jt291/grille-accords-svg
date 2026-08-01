@@ -29,5 +29,18 @@ describe('moteur audio', () => {
     expect(new TextDecoder().decode(midi.slice(14, 18))).toBe('MTrk')
     expect(midi.at(-3)).toBe(0xff)
     expect(midi.at(-2)).toBe(0x2f)
+    expect([...midi]).toContain(0x58)
+    expect(new TextDecoder().decode(midi)).toContain('C')
+  })
+
+  it('inscrit les changements de signature dans le MIDI', () => {
+    const song = parseSong(
+      `Mesures\nStructure:\n4/4 n=120\nA : texte\nA:\n4: C 3/4 3: G`,
+    )
+    const midi = [...createMidiFile(song)]
+    const signatures = midi.filter(
+      (byte, index) => byte === 0x58 && midi[index - 1] === 0xff,
+    )
+    expect(signatures).toHaveLength(2)
   })
 })

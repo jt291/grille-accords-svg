@@ -9,6 +9,9 @@ export type PlaybackEvent = {
   notes: number[]
   quarterNotes: number
   tempoBpm: number
+  chord: string
+  meterLabel: string
+  meterBottom: number
 }
 
 export type PlaybackController = {
@@ -130,6 +133,9 @@ export function createPlaybackEvents(song: Song): PlaybackEvent[] {
             tempoBpm,
             durationSeconds: beat.duration * beatSeconds,
             measureId,
+            chord: beat.chord,
+            meterLabel: measure.meter.label,
+            meterBottom: measure.meter.bottom,
           })
           beatOffset += beat.duration
         }
@@ -174,8 +180,20 @@ export function createMidiFile(song: Song): Uint8Array {
   timedEvents.push({ bytes: [0xc0, 0], order: 1, tick: 0 })
   let tick = 0
   let previousTempo = -1
+  let previousMeter = ''
 
   for (const event of createPlaybackEvents(song)) {
+    if (event.beatOffset === 0 && event.meterLabel !== previousMeter) {
+      const numerator = Number(event.meterLabel.split('/')[0])
+      const denominatorPower = Math.round(Math.log2(event.meterBottom))
+      const clocks = event.meterBottom === 8 && numerator % 3 === 0 ? 36 : 24
+      timedEvents.push({
+        bytes: [0xff, 0x58, 0x04, numerator, denominatorPower, clocks, 8],
+        order: 0,
+        tick,
+      })
+      previousMeter = event.meterLabel
+    }
     if (event.tempoBpm !== previousTempo) {
       const microseconds = Math.round(60_000_000 / event.tempoBpm)
       timedEvents.push({
@@ -193,6 +211,14 @@ export function createMidiFile(song: Song): Uint8Array {
       previousTempo = event.tempoBpm
     }
     const endTick = tick + Math.round(event.quarterNotes * ticksPerQuarter)
+    if (event.chord !== 'N.C.') {
+      const chord = [...new TextEncoder().encode(event.chord)].slice(0, 127)
+      timedEvents.push({
+        bytes: [0xff, 0x06, chord.length, ...chord],
+        order: 1,
+        tick,
+      })
+    }
     for (const note of event.notes) {
       timedEvents.push({ bytes: [0x90, note, 88], order: 2, tick })
       timedEvents.push({ bytes: [0x80, note, 0], order: 1, tick: endTick })
