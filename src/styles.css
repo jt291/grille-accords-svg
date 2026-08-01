@@ -317,7 +317,7 @@ select:focus-visible {
   background: var(--subtle);
   color: var(--muted);
   font:
-    12px / 24.5px DM Mono,
+    14px / 24.5px DM Mono,
     monospace;
   text-align: right;
   user-select: none;
