@@ -58,6 +58,7 @@ The application opens automatically at `http://localhost:4317/`.
 ```sh
 pnpm test       # Run the tests
 pnpm check      # Check the code with Biome
+pnpm docs       # Generate the TypeDoc API in docs/api
 pnpm build      # Create a production build
 pnpm preview    # Build and preview the production version
 ```

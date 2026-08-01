@@ -1,3 +1,10 @@
+/**
+ * Defines supported locales and translated user-interface messages.
+ *
+ * @packageDocumentation
+ */
+
+/** ISO-like locale codes supported by the application interface and help. */
 export type Language =
   | 'ar'
   | 'br'
@@ -9,6 +16,7 @@ export type Language =
   | 'pt'
   | 'zh'
 
+/** Language selector entries in their user-facing display order. */
 export const languages: { code: Language; flag: string; name: string }[] = [
   { code: 'en', flag: '🇬🇧', name: 'English' },
   { code: 'es', flag: '🇪🇸', name: 'Español' },
@@ -21,7 +29,8 @@ export const languages: { code: Language; flag: string; name: string }[] = [
   { code: 'pt', flag: '🇵🇹', name: 'Português' },
 ]
 
-const en = {
+/** English reference catalogue used to derive the message type. */
+export const en = {
   mainCommands: 'Main controls',
   chooseExample: 'Choose an example…',
   valid: 'Valid chart',
@@ -72,8 +81,10 @@ const en = {
   helpFrame: 'Grille Accords description language',
   footer: 'Made with ChatGPT 5.6 Sol… in 2 h 30!',
 }
-type Messages = typeof en
+/** Shape shared by every translated message catalogue. */
+export type Messages = typeof en
 
+/** Complete message catalogues keyed by supported locale. */
 export const messages: Record<Language, Messages> = {
   en,
   es: {
@@ -486,6 +497,7 @@ export const messages: Record<Language, Messages> = {
   },
 }
 
+/** Detects the best supported language from the browser locale. */
 export const defaultLanguage = (): Language => {
   const code = navigator.language.split('-')[0] as Language
   return languages.some((language) => language.code === code) ? code : 'en'

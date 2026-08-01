@@ -1,3 +1,9 @@
+/**
+ * Renders parsed chord-chart data as a self-contained, exportable SVG score.
+ *
+ * @packageDocumentation
+ */
+
 import type { Measure, Song } from './types'
 
 const W = 920,
@@ -16,6 +22,7 @@ const embeddedSvgStyles = `
   .measure-active{fill:#f4c7a0;opacity:.48}
 `
 
+/** Renders one measure, its chord onsets, beat markers, and optional meter. */
 function MeasureGroup({
   measure,
   index,
@@ -100,6 +107,7 @@ function MeasureGroup({
   )
 }
 
+/** Renders a prominent stacked time signature at a measure boundary. */
 function TimeSignature({
   meter,
   x,
@@ -137,6 +145,7 @@ function TimeSignature({
   )
 }
 
+/** Renders a complete song as an accessible SVG chord chart. */
 export function ChordChart({
   song,
   activeMeasureId,

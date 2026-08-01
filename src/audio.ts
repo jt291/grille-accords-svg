@@ -1,5 +1,12 @@
+/**
+ * Provides Web Audio playback and Standard MIDI File export for parsed songs.
+ *
+ * @packageDocumentation
+ */
+
 import type { Measure, Song } from './types'
 
+/** Describes one scheduled chord event in playback time. */
 export type PlaybackEvent = {
   beatOffset: number
   beatSeconds: number
@@ -14,11 +21,13 @@ export type PlaybackEvent = {
   meterBottom: number
 }
 
+/** Controls the lifecycle of an active Web Audio playback session. */
 export type PlaybackController = {
   pause: () => Promise<void>
   resume: () => Promise<void>
   stop: () => void
 }
+/** Configures optional playback features. */
 export type PlaybackOptions = { metronome?: boolean }
 
 const pitchClasses: Record<string, number> = {
@@ -41,6 +50,7 @@ const pitchClasses: Record<string, number> = {
   B: 11,
 }
 
+/** Maps a supported chord quality to semitone intervals above its root. */
 function chordIntervals(quality: string): number[] {
   if (/^(?:m7b5)/.test(quality)) return [0, 3, 6, 10]
   if (/^(?:dim7)/.test(quality)) return [0, 3, 6, 9]
@@ -63,6 +73,7 @@ function chordIntervals(quality: string): number[] {
   return [0, 4, 7]
 }
 
+/** Converts a chord symbol into a set of MIDI note numbers. */
 export function chordToMidi(chord: string): number[] {
   if (chord === 'N.C.') return []
   const match = chord.match(/^([A-G](?:#|b)?)([^/]*)(?:\/([A-G](?:#|b)?))?$/)
@@ -74,6 +85,7 @@ export function chordToMidi(chord: string): number[] {
   return [...new Set(notes)]
 }
 
+/** Converts a language tempo token to quarter notes per minute. */
 function quarterBpm(tempo: string | undefined): number {
   const match = tempo?.match(/^(n|b|np)=(\d+)$/i)
   if (!match) return 120
@@ -83,6 +95,7 @@ function quarterBpm(tempo: string | undefined): number {
   return bpm
 }
 
+/** Computes the duration of one logical beat for a measure and tempo. */
 function secondsPerBeat(measure: Measure, tempo: string | undefined): number {
   const signatureTop = Number(measure.meter.label.split('/')[0])
   const quarterNotes =
@@ -92,6 +105,7 @@ function secondsPerBeat(measure: Measure, tempo: string | undefined): number {
   return (60 / quarterBpm(tempo)) * quarterNotes
 }
 
+/** Expands a song structure into sequential playback events. */
 export function createPlaybackEvents(song: Song): PlaybackEvent[] {
   const events: PlaybackEvent[] = []
   let tempo = song.tempo
@@ -146,6 +160,7 @@ export function createPlaybackEvents(song: Song): PlaybackEvent[] {
   return events
 }
 
+/** Encodes an integer using MIDI's variable-length quantity format. */
 function variableLength(value: number): number[] {
   const bytes = [value & 0x7f]
   let remaining = value >> 7
@@ -156,6 +171,7 @@ function variableLength(value: number): number[] {
   return bytes
 }
 
+/** Builds a named MIDI chunk with a big-endian length prefix. */
 function chunk(name: string, data: number[]): number[] {
   const length = data.length
   return [
@@ -168,6 +184,7 @@ function chunk(name: string, data: number[]): number[] {
   ]
 }
 
+/** Creates a type-0 Standard MIDI File containing notes and musical metadata. */
 export function createMidiFile(song: Song): Uint8Array {
   const ticksPerQuarter = 480
   const timedEvents: { bytes: number[]; order: number; tick: number }[] = []
@@ -238,6 +255,7 @@ export function createMidiFile(song: Song): Uint8Array {
   return new Uint8Array([...header, ...chunk('MTrk', track)])
 }
 
+/** Synthesizes a short chord using triangle-wave oscillators. */
 function soundChord(context: AudioContext, notes: number[], duration: number) {
   if (!notes.length) return
   const now = context.currentTime
@@ -258,6 +276,7 @@ function soundChord(context: AudioContext, notes: number[], duration: number) {
   }
 }
 
+/** Schedules metronome clicks for every logical beat of a playback event. */
 function soundMetronome(context: AudioContext, event: PlaybackEvent) {
   for (let beat = 0; beat < event.durationBeats; beat += 1) {
     const time = context.currentTime + beat * event.beatSeconds
@@ -275,6 +294,11 @@ function soundMetronome(context: AudioContext, event: PlaybackEvent) {
   }
 }
 
+/**
+ * Starts Web Audio playback for a parsed song.
+ *
+ * @returns A controller that can pause, resume, or stop playback.
+ */
 export async function playSong(
   song: Song,
   onMeasure: (measureId: string | null) => void,
@@ -292,6 +316,7 @@ export async function playSong(
   let remainingMilliseconds = 0
   let timerStartedAt = 0
 
+  /** Stops playback and releases the audio context. */
   const stop = () => {
     if (stopped) return
     stopped = true
@@ -299,6 +324,7 @@ export async function playSong(
     onMeasure(null)
     void context.close()
   }
+  /** Suspends playback while preserving the remaining event time. */
   const pause = async () => {
     if (stopped || paused) return
     paused = true
@@ -311,6 +337,7 @@ export async function playSong(
     }
     await context.suspend()
   }
+  /** Resumes a previously suspended playback session. */
   const resume = async () => {
     if (stopped || !paused) return
     paused = false
@@ -318,6 +345,7 @@ export async function playSong(
     timerStartedAt = performance.now()
     timer = window.setTimeout(next, remainingMilliseconds)
   }
+  /** Schedules the next chord event or completes playback. */
   const next = () => {
     if (stopped || paused) return
     const event = events[index]

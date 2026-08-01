@@ -1,3 +1,9 @@
+/**
+ * Verifies parsing, diagnostics, and backward-compatible language syntax.
+ *
+ * @packageDocumentation
+ */
+
 import { describe, expect, it } from 'vitest'
 import { parseSong } from './parser'
 

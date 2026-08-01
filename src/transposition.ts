@@ -1,5 +1,12 @@
+/**
+ * Transposes chord symbols, parsed songs, and textual chart descriptions.
+ *
+ * @packageDocumentation
+ */
+
 import type { Song } from './types'
 
+/** Selects the enharmonic spelling used for transposed notes. */
 export type Accidental = 'flat' | 'sharp'
 
 const sharpNotes = [
@@ -55,6 +62,7 @@ const pitch = new Map([
 ])
 const chordPattern = /^([A-G](?:#|b)?)(.*?)(?:\/([A-G](?:#|b)?))?$/i
 
+/** Transposes a single note name by a signed number of semitones. */
 function transposeNote(note: string, steps: number, accidental: Accidental) {
   const value = pitch.get(note.toUpperCase())
   if (value === undefined) return note
@@ -63,6 +71,9 @@ function transposeNote(note: string, steps: number, accidental: Accidental) {
   ]
 }
 
+/**
+ * Transposes a chord symbol while preserving its quality and optional bass.
+ */
 export function transposeChord(
   chord: string,
   steps: number,
@@ -75,6 +86,7 @@ export function transposeChord(
   return `${transposeNote(root, steps, accidental)}${suffix}${bass ? `/${transposeNote(bass, steps, accidental)}` : ''}`
 }
 
+/** Creates a transposed copy of a parsed song without changing the source song. */
 export function transposeSong(
   song: Song,
   steps: number,
@@ -104,6 +116,7 @@ export function transposeSong(
   }
 }
 
+/** Transposes chord tokens inside part blocks while preserving structural text. */
 export function transposeSource(
   source: string,
   steps: number,

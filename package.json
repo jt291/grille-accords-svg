@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port 4317 --strictPort --open /",
+    "docs": "typedoc",
     "build": "tsc -b && vite build && mkdir -p dist/client/GrilleAccordsHelp dist/server && cp GrilleAccordsHelp/GA_Langage.html GrilleAccordsHelp/HelpStyles.css dist/client/GrilleAccordsHelp/ && cp worker/index.js dist/server/index.js",
     "preview": "pnpm run build && vite preview --port 4318 --strictPort --open /",
     "check": "biome check .",
@@ -25,7 +26,8 @@
     "@biomejs/biome": "^2.5.6",
     "@types/react": "latest",
     "@types/react-dom": "latest",
-    "typescript": "latest",
+    "typedoc": "^0.28.20",
+    "typescript": "^5.9.3",
     "vitest": "latest"
   },
   "packageManager": "pnpm@10.14.0"

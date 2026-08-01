@@ -1,3 +1,9 @@
+/**
+ * Implements the complete Grille Accords editor user interface and workflows.
+ *
+ * @packageDocumentation
+ */
+
 import { Icon, type IconifyIcon } from '@iconify/react'
 import close from '@iconify-icons/mdi/close'
 import contentSaveEditOutline from '@iconify-icons/mdi/content-save-edit-outline'
@@ -27,18 +33,22 @@ import {
   transposeSource,
 } from './transposition'
 
+/** Raw song examples bundled by Vite at build time. */
 const examples = import.meta.glob('../Chansons/*.txt', {
   eager: true,
   query: '?raw',
   import: 'default',
 }) as Record<string, string>
+/** Example entries sorted for the song selector. */
 const entries = Object.entries(examples).sort(([a], [b]) =>
   a.localeCompare(b, 'fr'),
 )
+/** Initial editor source, preferring the bundled Blackbird example. */
 const initial =
   entries.find(([path]) => path.endsWith('/Blackbird.txt'))?.[1] ??
   `Ma chanson\n\nStructure:\n4/4 n=120\nCouplet : premier couplet\n\nCouplet:\n4: C Am F G`
 
+/** Renders a consistent accessible icon-only button. */
 function IconButton({
   icon,
   label,
@@ -60,12 +70,14 @@ function IconButton({
   )
 }
 
+/** Converts a song title into a safe download filename stem. */
 const slug = (title: string) =>
   title
     .replace(/[^a-z0-9]+/gi, '-')
     .replace(/^-|-$/g, '')
     .toLowerCase() || 'grille'
 
+/** Locates and marks the source token most likely associated with a diagnostic. */
 function locateDiagnostic(source: string, line: number, message: string) {
   const text = source.split('\n')[line - 1] ?? ''
   const tokens = [...text.matchAll(/\S+/g)]
@@ -83,6 +95,7 @@ function locateDiagnostic(source: string, line: number, message: string) {
   return { marked: marked || text, position: tokenIndex + 1, symbol }
 }
 
+/** Renders the main application and coordinates editing, playback, and export. */
 export default function App() {
   const [source, setSource] = useState(initial)
   const [cursor, setCursor] = useState({ line: 1, column: 1 })
@@ -125,6 +138,7 @@ export default function App() {
   )
   const errorLines = new Set(errorDiagnostics.map(({ line }) => line))
 
+  /** Updates the one-based editor line and column from the current selection. */
   const updateCursor = (editor: HTMLTextAreaElement) => {
     const before = editor.value.slice(0, editor.selectionStart)
     const rows = before.split('\n')
@@ -150,6 +164,7 @@ export default function App() {
   }, [])
   useEffect(() => () => playbackRef.current?.stop(), [])
 
+  /** Stops the active playback session and clears its visual state. */
   const stopPlayback = () => {
     playbackRef.current?.stop()
     playbackRef.current = null
@@ -157,6 +172,7 @@ export default function App() {
     setPaused(false)
     setActiveMeasureId(null)
   }
+  /** Starts playback for the currently rendered, possibly transposed song. */
   const startPlayback = async () => {
     stopPlayback()
     setPlaying(true)
@@ -171,12 +187,14 @@ export default function App() {
       { metronome: metronomeEnabled },
     )
   }
+  /** Toggles the active playback controller between paused and running states. */
   const togglePause = async () => {
     if (!playbackRef.current) return
     if (paused) await playbackRef.current.resume()
     else await playbackRef.current.pause()
     setPaused(!paused)
   }
+  /** Downloads generated content using the current song title as its filename. */
   const download = (data: BlobPart, type: string, extension: string) => {
     const anchor = document.createElement('a')
     anchor.href = URL.createObjectURL(new Blob([data], { type }))
@@ -184,6 +202,7 @@ export default function App() {
     anchor.click()
     URL.revokeObjectURL(anchor.href)
   }
+  /** Exports the current chart as a self-contained SVG document. */
   const exportSvg = () => {
     const svg = document.getElementById('chord-chart')
     if (svg)
@@ -193,6 +212,7 @@ export default function App() {
         'svg',
       )
   }
+  /** Rasterizes the current SVG at double resolution as PNG or WebP. */
   const exportRaster = async (format: 'png' | 'webp') => {
     const svg = document.getElementById('chord-chart') as SVGSVGElement | null
     if (!svg) return
@@ -222,18 +242,21 @@ export default function App() {
     )
     if (blob) download(blob, blob.type, format)
   }
+  /** Exports the rendered song as a Standard MIDI File. */
   const exportMidi = () => {
     const data = createMidiFile(renderedSong)
     const buffer = new ArrayBuffer(data.byteLength)
     new Uint8Array(buffer).set(data)
     download(buffer, 'audio/midi', 'mid')
   }
+  /** Exports the rendered song as a MusicXML score. */
   const exportMusicXml = () =>
     download(
       createMusicXml(renderedSong),
       'application/vnd.recordare.musicxml+xml;charset=utf-8',
       'musicxml',
     )
+  /** Imports a user-selected UTF-8 text file into the editor. */
   const importText = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
     if (!file) return
@@ -243,16 +266,19 @@ export default function App() {
     setTransposeSteps(0)
     event.target.value = ''
   }
+  /** Applies the configured transposition directly to the textual source. */
   const applyTranspose = () => {
     if (!transposeSteps) return
     setSourceBeforeTranspose(source)
     setSource(transposeSource(source, transposeSteps, accidental))
     setTransposeSteps(0)
   }
+  /** Starts pointer-driven resizing of the help drawer. */
   const startHelpResize = (event: React.PointerEvent<HTMLHRElement>) => {
     event.preventDefault()
     const startX = event.clientX
     const startWidth = helpWidth
+    /** Applies one help-drawer resize movement. */
     const resize = (moveEvent: PointerEvent) =>
       setHelpWidth(
         Math.max(
@@ -263,6 +289,7 @@ export default function App() {
           ),
         ),
       )
+    /** Removes help-drawer resize listeners after the gesture completes. */
     const stopResize = () => {
       window.removeEventListener('pointermove', resize)
       window.removeEventListener('pointerup', stopResize)
@@ -270,8 +297,10 @@ export default function App() {
     window.addEventListener('pointermove', resize)
     window.addEventListener('pointerup', stopResize)
   }
+  /** Starts pointer-driven resizing of the editor and preview panels. */
   const startWorkspaceResize = (event: React.PointerEvent<HTMLHRElement>) => {
     event.preventDefault()
+    /** Applies one workspace splitter movement. */
     const resize = (moveEvent: PointerEvent) => {
       const bounds = workspaceRef.current?.getBoundingClientRect()
       if (bounds)
@@ -285,6 +314,7 @@ export default function App() {
           ),
         )
     }
+    /** Removes workspace resize listeners after the gesture completes. */
     const stopResize = () => {
       window.removeEventListener('pointermove', resize)
       window.removeEventListener('pointerup', stopResize)

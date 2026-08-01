@@ -1,0 +1,9 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": ["src"],
+  "entryPointStrategy": "expand",
+  "exclude": ["**/*.test.ts", "src/vite-env.d.ts"],
+  "excludePrivate": true,
+  "out": "docs/api",
+  "readme": "README.md"
+}

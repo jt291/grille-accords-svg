@@ -1,3 +1,9 @@
+/**
+ * Verifies chord-symbol and source-text transposition behavior.
+ *
+ * @packageDocumentation
+ */
+
 import { describe, expect, it } from 'vitest'
 import { transposeChord, transposeSource } from './transposition'
 

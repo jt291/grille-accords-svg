@@ -1,3 +1,9 @@
+/**
+ * Verifies chord voicing, playback scheduling, and MIDI serialization.
+ *
+ * @packageDocumentation
+ */
+
 import { describe, expect, it } from 'vitest'
 import { chordToMidi, createMidiFile, createPlaybackEvents } from './audio'
 import { parseSong } from './parser'

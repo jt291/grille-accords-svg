@@ -1,5 +1,12 @@
+/**
+ * Serializes parsed chord charts as MusicXML 4.0 partwise scores.
+ *
+ * @packageDocumentation
+ */
+
 import type { Measure, Song } from './types'
 
+/** Escapes text for safe inclusion in XML elements and attributes. */
 const xml = (value: string) =>
   value
     .replaceAll('&', '&amp;')
@@ -7,6 +14,7 @@ const xml = (value: string) =>
     .replaceAll('>', '&gt;')
     .replaceAll('"', '&quot;')
 
+/** Converts a chord symbol to a MusicXML harmony element. */
 function harmony(chord: string) {
   if (chord === 'N.C.') return '<harmony><kind>none</kind></harmony>'
   const match = chord.match(/^([A-G])([#b]?)([^/]*)(?:\/([A-G])([#b]?))?$/)
@@ -33,6 +41,7 @@ function harmony(chord: string) {
   return `<harmony><root><root-step>${root}</root-step>${alter ? `<root-alter>${alter}</root-alter>` : ''}</root><kind text="${xml(suffix)}">${kinds[suffix] ?? 'other'}</kind>${bass ? `<bass><bass-step>${bass}</bass-step>${bassAlter ? `<bass-alter>${bassAlter}</bass-alter>` : ''}</bass>` : ''}</harmony>`
 }
 
+/** Returns a logical beat duration in MusicXML divisions. */
 function beatDuration(measure: Measure) {
   const numerator = Number(measure.meter.label.split('/')[0])
   return measure.meter.bottom === 8 && numerator % 3 === 0
@@ -40,6 +49,7 @@ function beatDuration(measure: Measure) {
     : 8 / measure.meter.bottom
 }
 
+/** Converts a language tempo token to quarter notes per minute. */
 function tempoBpm(tempo: string | undefined) {
   const match = tempo?.match(/^(n|b|np)=(\d+)$/i)
   if (!match) return undefined
@@ -51,6 +61,7 @@ function tempoBpm(tempo: string | undefined) {
       : value
 }
 
+/** Creates a complete MusicXML 4.0 document for a parsed song. */
 export function createMusicXml(song: Song) {
   const measures: string[] = []
   let number = 1

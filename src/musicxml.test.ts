@@ -1,3 +1,9 @@
+/**
+ * Verifies MusicXML score metadata, harmony symbols, and measure output.
+ *
+ * @packageDocumentation
+ */
+
 import { describe, expect, it } from 'vitest'
 import { createMusicXml } from './musicxml'
 import { parseSong } from './parser'

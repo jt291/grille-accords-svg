@@ -1,3 +1,9 @@
+/**
+ * Parses the textual chord-chart language into the application's domain model.
+ *
+ * @packageDocumentation
+ */
+
 import type {
   Beat,
   Diagnostic,
@@ -15,6 +21,7 @@ const durationRe = /^(\d+):$/
 const chordRe =
   /^(?:NC|[A-G](?:#|b)?(?:m7M|7sus[24]|m7b5|dim7|sus[24]|add2|M7|m9|dim|m7|m6|m|\+5|[mM]?[2679]|[24])?)(?:\/[A-G](?:#|b)?)?$/i
 
+/** Parses a time-signature token and derives its logical beat count. */
 const meter = (token: string): Meter | undefined => {
   const match = token.match(meterRe)
   if (!match) return undefined
@@ -23,6 +30,7 @@ const meter = (token: string): Meter | undefined => {
   return { top: beats, bottom: Number(match[2]), label: token }
 }
 
+/** Parses one music line and appends any detected diagnostics. */
 function parseMusicLine(
   text: string,
   lineNumber: number,
@@ -36,6 +44,7 @@ function parseMusicLine(
   let used = 0
   let tempo: string | undefined
 
+  /** Flushes the currently accumulated beats into a complete measure. */
   const finish = () => {
     if (!beats.length) return
     measures.push({ meter: currentMeter, beats })
@@ -111,6 +120,12 @@ function parseMusicLine(
   return { sourceLine: lineNumber, measures, tempo }
 }
 
+/**
+ * Parses a complete chord-chart description.
+ *
+ * @param source - Raw UTF-8 text entered or imported by the user.
+ * @returns The parsed song and all diagnostics produced during parsing.
+ */
 export function parseSong(source: string): Song {
   const rows = source.replace(/\r/g, '').split('\n')
   const diagnostics: Diagnostic[] = []

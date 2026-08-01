@@ -1,3 +1,9 @@
+/**
+ * Configures Vite development, preview, testing, and Sites-compatible builds.
+ *
+ * @packageDocumentation
+ */
+
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 

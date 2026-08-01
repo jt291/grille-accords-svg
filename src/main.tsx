@@ -1,3 +1,9 @@
+/**
+ * Boots the React application and attaches it to the document root.
+ *
+ * @packageDocumentation
+ */
+
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App'
