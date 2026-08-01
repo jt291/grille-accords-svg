@@ -317,7 +317,7 @@ select:focus-visible {
   background: var(--subtle);
   color: var(--muted);
   font:
-    14px / 24.5px DM Mono,
+    14px / 24px DM Mono,
     monospace;
   text-align: right;
   user-select: none;
@@ -327,7 +327,7 @@ select:focus-visible {
 }
 .line-numbers span {
   display: block;
-  height: 24.5px;
+  height: 24px;
   padding-right: 12px;
 }
 .line-numbers .line-error {
@@ -352,7 +352,7 @@ textarea {
   background: var(--paper);
   color: var(--ink);
   font:
-    14px / 24.5px DM Mono,
+    14px / 24px DM Mono,
     monospace;
   tab-size: 2;
   white-space: pre;
