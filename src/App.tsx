@@ -1,8 +1,28 @@
+import { Icon, type IconifyIcon } from '@iconify/react'
+import contentSaveEditOutline from '@iconify-icons/mdi/content-save-edit-outline'
+import fileDownloadOutline from '@iconify-icons/mdi/file-download-outline'
+import fileUploadOutline from '@iconify-icons/mdi/file-upload-outline'
+import fullscreen from '@iconify-icons/mdi/fullscreen'
+import fullscreenExit from '@iconify-icons/mdi/fullscreen-exit'
+import github from '@iconify-icons/mdi/github'
+import helpCircleOutline from '@iconify-icons/mdi/help-circle-outline'
+import metronome from '@iconify-icons/mdi/metronome'
+import pause from '@iconify-icons/mdi/pause'
+import play from '@iconify-icons/mdi/play'
+import printer from '@iconify-icons/mdi/printer'
+import stop from '@iconify-icons/mdi/stop'
+import themeLightDark from '@iconify-icons/mdi/theme-light-dark'
+import undo from '@iconify-icons/mdi/undo'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import githubMark from './assets/github-mark.svg'
+import logoGa from './assets/logo-ga.svg'
 import { createMidiFile, type PlaybackController, playSong } from './audio'
 import { ChordChart } from './ChordChart'
 import { parseSong } from './parser'
+import {
+  type Accidental,
+  transposeSong,
+  transposeSource,
+} from './transposition'
 
 const examples = import.meta.glob('../Chansons/*.txt', {
   eager: true,
@@ -13,11 +33,55 @@ const entries = Object.entries(examples).sort(([a], [b]) =>
   a.localeCompare(b, 'fr'),
 )
 const initial =
-  entries.find(([p]) => p.endsWith('/Blackbird.txt'))?.[1] ??
+  entries.find(([path]) => path.endsWith('/Blackbird.txt'))?.[1] ??
   `Ma chanson\n\nStructure:\n4/4 n=120\nCouplet : premier couplet\n\nCouplet:\n4: C Am F G`
+
+type Language = 'ar' | 'br' | 'en' | 'fr' | 'hi' | 'ku' | 'zh'
+const languages: { code: Language; flag: string; name: string }[] = [
+  { code: 'en', flag: '🇬🇧', name: 'English' },
+  { code: 'ar', flag: '🇸🇦', name: 'العربية' },
+  { code: 'br', flag: '🏴', name: 'Brezhoneg' },
+  { code: 'zh', flag: '🇨🇳', name: '中文' },
+  { code: 'fr', flag: '🇫🇷', name: 'Français' },
+  { code: 'hi', flag: '🇮🇳', name: 'हिन्दी' },
+  { code: 'ku', flag: '☀️', name: 'Kurdî' },
+]
+const supported = new Set(languages.map(({ code }) => code))
+const systemLanguage = (): Language => {
+  const code = navigator.language.split('-')[0] as Language
+  return supported.has(code) ? code : 'en'
+}
+
+function IconButton({
+  icon,
+  label,
+  ...props
+}: {
+  icon: IconifyIcon
+  label: string
+} & React.ButtonHTMLAttributes<HTMLButtonElement>) {
+  return (
+    <button
+      type="button"
+      className="icon-button"
+      aria-label={label}
+      title={label}
+      {...props}
+    >
+      <Icon icon={icon} />
+    </button>
+  )
+}
+
+const slug = (title: string) =>
+  title
+    .replace(/[^a-z0-9]+/gi, '-')
+    .replace(/^-|-$/g, '')
+    .toLowerCase() || 'grille'
 
 export default function App() {
   const [source, setSource] = useState(initial)
+  const [selectedExample, setSelectedExample] = useState('')
   const [editorScroll, setEditorScroll] = useState(0)
   const [helpOpen, setHelpOpen] = useState(false)
   const [helpWidth, setHelpWidth] = useState(720)
@@ -27,37 +91,49 @@ export default function App() {
   const [paused, setPaused] = useState(false)
   const [metronomeEnabled, setMetronomeEnabled] = useState(false)
   const [activeMeasureId, setActiveMeasureId] = useState<string | null>(null)
+  const [language, setLanguage] = useState<Language>(systemLanguage)
+  const [dark, setDark] = useState(
+    () => matchMedia('(prefers-color-scheme: dark)').matches,
+  )
+  const [transposeSteps, setTransposeSteps] = useState(0)
+  const [accidental, setAccidental] = useState<Accidental>('sharp')
+  const [gridOnly, setGridOnly] = useState(true)
+  const [sourceBeforeTranspose, setSourceBeforeTranspose] = useState<
+    string | null
+  >(null)
   const previewRef = useRef<HTMLElement>(null)
   const workspaceRef = useRef<HTMLDivElement>(null)
   const playbackRef = useRef<PlaybackController | null>(null)
   const importInputRef = useRef<HTMLInputElement>(null)
   const song = useMemo(() => parseSong(source), [source])
-  const errors = song.diagnostics.filter((d) => d.severity === 'error').length
+  const renderedSong = useMemo(
+    () => transposeSong(song, transposeSteps, accidental),
+    [song, transposeSteps, accidental],
+  )
+  const errors = song.diagnostics.filter(
+    (diagnostic) => diagnostic.severity === 'error',
+  ).length
+  const lineCount = source.split('\n').length
+
   useEffect(() => {
-    if (!helpOpen) return
-    document.body.classList.add('modal-open')
-    return () => {
-      document.body.classList.remove('modal-open')
-    }
+    document.documentElement.lang = language
+    document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr'
+  }, [language])
+  useEffect(() => {
+    document.documentElement.dataset.theme = dark ? 'dark' : 'light'
+  }, [dark])
+  useEffect(() => {
+    document.body.classList.toggle('modal-open', helpOpen)
+    return () => document.body.classList.remove('modal-open')
   }, [helpOpen])
   useEffect(() => {
-    const updateFullscreen = () =>
+    const update = () =>
       setPreviewFullscreen(document.fullscreenElement === previewRef.current)
-    document.addEventListener('fullscreenchange', updateFullscreen)
-    return () =>
-      document.removeEventListener('fullscreenchange', updateFullscreen)
+    document.addEventListener('fullscreenchange', update)
+    return () => document.removeEventListener('fullscreenchange', update)
   }, [])
-  useEffect(
-    () => () => {
-      playbackRef.current?.stop()
-      playbackRef.current = null
-    },
-    [source],
-  )
-  const togglePreviewFullscreen = async () => {
-    if (document.fullscreenElement) await document.exitFullscreen()
-    else await previewRef.current?.requestFullscreen()
-  }
+  useEffect(() => () => playbackRef.current?.stop(), [])
+
   const stopPlayback = () => {
     playbackRef.current?.stop()
     playbackRef.current = null
@@ -68,9 +144,8 @@ export default function App() {
   const startPlayback = async () => {
     stopPlayback()
     setPlaying(true)
-    setPaused(false)
     playbackRef.current = await playSong(
-      song,
+      renderedSong,
       setActiveMeasureId,
       () => {
         playbackRef.current = null
@@ -81,21 +156,50 @@ export default function App() {
     )
   }
   const togglePause = async () => {
-    const playback = playbackRef.current
-    if (!playback) return
-    if (paused) {
-      await playback.resume()
-      setPaused(false)
-    } else {
-      await playback.pause()
-      setPaused(true)
-    }
+    if (!playbackRef.current) return
+    if (paused) await playbackRef.current.resume()
+    else await playbackRef.current.pause()
+    setPaused(!paused)
+  }
+  const download = (data: BlobPart, type: string, extension: string) => {
+    const anchor = document.createElement('a')
+    anchor.href = URL.createObjectURL(new Blob([data], { type }))
+    anchor.download = `${slug(song.title)}.${extension}`
+    anchor.click()
+    URL.revokeObjectURL(anchor.href)
+  }
+  const exportSvg = () => {
+    const svg = document.getElementById('chord-chart')
+    if (svg)
+      download(
+        new XMLSerializer().serializeToString(svg),
+        'image/svg+xml',
+        'svg',
+      )
+  }
+  const exportMidi = () => {
+    const data = createMidiFile(renderedSong)
+    const buffer = new ArrayBuffer(data.byteLength)
+    new Uint8Array(buffer).set(data)
+    download(buffer, 'audio/midi', 'mid')
+  }
+  const importText = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    if (!file) return
+    stopPlayback()
+    setSource(await file.text())
+    setSelectedExample('')
+    setTransposeSteps(0)
+    event.target.value = ''
+  }
+  const applyTranspose = () => {
+    if (!transposeSteps) return
+    setSourceBeforeTranspose(source)
+    setSource(transposeSource(source, transposeSteps, accidental))
+    setTransposeSteps(0)
   }
   const startHelpResize = (event: React.PointerEvent<HTMLHRElement>) => {
     event.preventDefault()
-    const handle = event.currentTarget
-    const pointerId = event.pointerId
-    handle.setPointerCapture(pointerId)
     const startX = event.clientX
     const startWidth = helpWidth
     const resize = (moveEvent: PointerEvent) =>
@@ -108,174 +212,110 @@ export default function App() {
           ),
         ),
       )
-    const stop = () => {
+    const stopResize = () => {
       window.removeEventListener('pointermove', resize)
-      window.removeEventListener('pointerup', stop)
-      window.removeEventListener('pointercancel', stop)
-      if (handle.hasPointerCapture(pointerId))
-        handle.releasePointerCapture(pointerId)
+      window.removeEventListener('pointerup', stopResize)
     }
     window.addEventListener('pointermove', resize)
-    window.addEventListener('pointerup', stop)
-    window.addEventListener('pointercancel', stop)
+    window.addEventListener('pointerup', stopResize)
   }
   const startWorkspaceResize = (event: React.PointerEvent<HTMLHRElement>) => {
     event.preventDefault()
-    const handle = event.currentTarget
-    const pointerId = event.pointerId
-    handle.setPointerCapture(pointerId)
     const resize = (moveEvent: PointerEvent) => {
       const bounds = workspaceRef.current?.getBoundingClientRect()
-      if (!bounds) return
-      const position = ((moveEvent.clientX - bounds.left) / bounds.width) * 100
-      setSplitPosition(Math.max(25, Math.min(75, position)))
+      if (bounds)
+        setSplitPosition(
+          Math.max(
+            25,
+            Math.min(
+              75,
+              ((moveEvent.clientX - bounds.left) / bounds.width) * 100,
+            ),
+          ),
+        )
     }
-    const stop = () => {
+    const stopResize = () => {
       window.removeEventListener('pointermove', resize)
-      window.removeEventListener('pointerup', stop)
-      window.removeEventListener('pointercancel', stop)
-      if (handle.hasPointerCapture(pointerId))
-        handle.releasePointerCapture(pointerId)
+      window.removeEventListener('pointerup', stopResize)
     }
     window.addEventListener('pointermove', resize)
-    window.addEventListener('pointerup', stop)
-    window.addEventListener('pointercancel', stop)
+    window.addEventListener('pointerup', stopResize)
   }
-  const exportSvg = () => {
-    const svg = document.getElementById('chord-chart')
-    if (!svg) return
-    const data = new XMLSerializer().serializeToString(svg)
-    const a = document.createElement('a')
-    a.href = URL.createObjectURL(new Blob([data], { type: 'image/svg+xml' }))
-    a.download = `${
-      song.title
-        .replace(/[^a-z0-9]+/gi, '-')
-        .replace(/^-|-$/g, '')
-        .toLowerCase() || 'grille'
-    }.svg`
-    a.click()
-    URL.revokeObjectURL(a.href)
-  }
-  const exportText = () => {
-    const a = document.createElement('a')
-    a.href = URL.createObjectURL(
-      new Blob([source], { type: 'text/plain;charset=utf-8' }),
-    )
-    a.download = `${
-      song.title
-        .replace(/[^a-z0-9]+/gi, '-')
-        .replace(/^-|-$/g, '')
-        .toLowerCase() || 'grille'
-    }.txt`
-    a.click()
-    URL.revokeObjectURL(a.href)
-  }
-  const exportMidi = () => {
-    const data = createMidiFile(song)
-    const buffer = new ArrayBuffer(data.byteLength)
-    new Uint8Array(buffer).set(data)
-    const a = document.createElement('a')
-    a.href = URL.createObjectURL(new Blob([buffer], { type: 'audio/midi' }))
-    a.download = `${
-      song.title
-        .replace(/[^a-z0-9]+/gi, '-')
-        .replace(/^-|-$/g, '')
-        .toLowerCase() || 'grille'
-    }.mid`
-    a.click()
-    URL.revokeObjectURL(a.href)
-  }
-  const importText = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]
-    if (!file) return
-    stopPlayback()
-    setSource(await file.text())
-    event.target.value = ''
-  }
+
   return (
     <main>
-      <header>
-        <div>
-          <span className="eyebrow">ÉDITEUR MUSICAL</span>
-          <h1>
-            Grille <i>Accords</i>
-          </h1>
-        </div>
-        <p>
-          Du texte à une grille claire,
-          <br />
-          prête à jouer.
-        </p>
-      </header>
-      <section className="toolbar">
-        <label>
-          Exemple{' '}
+      <nav className="main-toolbar" aria-label="Commandes principales">
+        <div className="toolbar-start">
+          <img className="app-logo" src={logoGa} alt="Grille Accords" />
           <select
-            defaultValue=""
-            onChange={(e) =>
-              e.target.value && setSource(examples[e.target.value])
-            }
+            className="example-select"
+            value={selectedExample}
+            aria-label="Choisir un exemple"
+            onChange={(event) => {
+              const path = event.target.value
+              setSelectedExample(path)
+              if (path) {
+                stopPlayback()
+                setSource(examples[path])
+                setTransposeSteps(0)
+              }
+            }}
           >
-            <option value="" disabled>
-              Choisir une chanson…
-            </option>
+            <option value="">Choisir un exemple…</option>
             {entries.map(([path]) => (
               <option key={path} value={path}>
                 {path.split('/').pop()?.replace('.txt', '')}
               </option>
             ))}
           </select>
-        </label>
-        <input
-          ref={importInputRef}
-          className="file-input"
-          type="file"
-          accept=".txt,text/plain"
-          onChange={importText}
-        />
-        <button
-          type="button"
-          className="secondary-button"
-          onClick={() => importInputRef.current?.click()}
-        >
-          Importer un texte ↑
-        </button>
-        <span className={errors ? 'status bad' : 'status'}>
-          <b>{errors ? 'À corriger' : 'Grille valide'}</b> ·{' '}
-          {song.diagnostics.length} diagnostic
-          {song.diagnostics.length !== 1 ? 's' : ''}
-        </span>
-        <button
-          type="button"
-          className="secondary-button"
-          onClick={() => setHelpOpen(true)}
-        >
-          Aide
-        </button>
-        <button
-          type="button"
-          className="secondary-button"
-          onClick={() => window.print()}
-        >
-          Imprimer
-        </button>
-        <button type="button" onClick={exportSvg}>
-          Exporter en SVG ↓
-        </button>
-        <button type="button" onClick={exportMidi} disabled={errors > 0}>
-          Exporter en MIDI ↓
-        </button>
-        <a
-          className="github-link"
-          href="https://github.com/jt291/grille-accords-svg"
-          target="_blank"
-          rel="noreferrer"
-          aria-label="Voir les sources sur GitHub"
-          title="Voir les sources sur GitHub"
-        >
-          <img src={githubMark} alt="" />
-        </a>
-      </section>
+        </div>
+        <div className="song-summary">
+          <strong>{song.title}</strong>
+          <span className={errors ? 'status bad' : 'status'}>
+            {errors ? 'À corriger' : 'Grille valide'} :{' '}
+            {song.diagnostics.length} diagnostic
+            {song.diagnostics.length !== 1 ? 's' : ''}
+          </span>
+        </div>
+        <div className="toolbar-end">
+          <select
+            className="language-select"
+            value={language}
+            aria-label="Langue"
+            title="Langue"
+            onChange={(event) => setLanguage(event.target.value as Language)}
+          >
+            {languages.map(({ code, flag, name }) => (
+              <option key={code} value={code} title={name}>
+                {flag}
+              </option>
+            ))}
+          </select>
+          <IconButton
+            icon={themeLightDark}
+            label={dark ? 'Mode clair' : 'Mode sombre'}
+            onClick={() => setDark((value) => !value)}
+          />
+          <a
+            className="icon-link"
+            href="https://github.com/jt291/grille-accords-svg"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Sources GitHub"
+            title="Sources GitHub"
+          >
+            <Icon icon={github} />
+          </a>
+        </div>
+      </nav>
+
+      <input
+        ref={importInputRef}
+        className="file-input"
+        type="file"
+        accept=".txt,text/plain"
+        onChange={importText}
+      />
       <div
         className="workspace"
         ref={workspaceRef}
@@ -287,9 +327,35 @@ export default function App() {
         }
       >
         <section className="source-panel">
-          <div className="panel-title">
-            <span>DESCRIPTION</span>
-            <small>{source.split('\n').length} lignes</small>
+          <div className="panel-toolbar">
+            <strong>Description</strong>
+            <div className="panel-actions">
+              <IconButton
+                icon={helpCircleOutline}
+                label="Aide"
+                onClick={() => setHelpOpen(true)}
+              />
+              <IconButton
+                icon={printer}
+                label="Imprimer"
+                onClick={() => window.print()}
+              />
+              <IconButton
+                icon={fileUploadOutline}
+                label="Importer un texte"
+                onClick={() => importInputRef.current?.click()}
+              />
+              <IconButton
+                icon={fileDownloadOutline}
+                label="Exporter le texte"
+                onClick={() =>
+                  download(source, 'text/plain;charset=utf-8', 'txt')
+                }
+              />
+              <small>
+                {lineCount} ligne{lineCount !== 1 ? 's' : ''}
+              </small>
+            </div>
           </div>
           <div className="editor">
             <div className="line-numbers" aria-hidden="true">
@@ -302,31 +368,35 @@ export default function App() {
             <textarea
               spellCheck={false}
               value={source}
-              onChange={(e) => setSource(e.target.value)}
-              onScroll={(e) => setEditorScroll(e.currentTarget.scrollTop)}
+              onChange={(event) => {
+                setSource(event.target.value)
+                setSelectedExample('')
+              }}
+              onScroll={(event) =>
+                setEditorScroll(event.currentTarget.scrollTop)
+              }
               aria-label="Description textuelle de la grille"
             />
           </div>
           <div className="diagnostics" aria-live="polite">
             {song.diagnostics.length === 0 ? (
-              <div className="export-ready">
-                <p>✓ Description valide.</p>
-                <button type="button" onClick={exportText}>
-                  Exporter le texte ↓
-                </button>
-              </div>
+              <p>✓ Description valide.</p>
             ) : (
-              song.diagnostics.slice(0, 5).map((d, i) => (
-                <p key={i} className={d.severity}>
-                  <b>Ligne {d.line}</b> — {d.message}
+              song.diagnostics.slice(0, 5).map((diagnostic, index) => (
+                <p
+                  key={`${diagnostic.line}-${index}`}
+                  className={diagnostic.severity}
+                >
+                  <b>Ligne {diagnostic.line}</b> — {diagnostic.message}
                 </p>
               ))
             )}
           </div>
         </section>
+
         <hr
           className="workspace-splitter"
-          aria-label="Redimensionner les panneaux description et aperçu"
+          aria-label="Redimensionner les panneaux"
           aria-orientation="vertical"
           aria-valuemin={25}
           aria-valuemax={75}
@@ -340,73 +410,144 @@ export default function App() {
               setSplitPosition((value) => Math.min(75, value + 2))
           }}
         />
+
         <section className="preview-panel" ref={previewRef}>
-          <div className="panel-title">
-            <span>APERÇU SVG</span>
-            <div className="preview-actions">
+          <div className="panel-toolbar">
+            <strong>SVG</strong>
+            <div className="panel-actions">
               <small>
-                {song.sections.length} parties · {song.parts.size} grilles
+                {renderedSong.sections.length} parties ·{' '}
+                {renderedSong.parts.size} grilles
               </small>
-              <fieldset className="transport" aria-label="Commandes de lecture">
-                <button
-                  type="button"
-                  className="play-button"
-                  onClick={startPlayback}
-                  disabled={playing || errors > 0}
-                >
-                  ▶ Lecture
-                </button>
-                <button
-                  type="button"
-                  className="pause-button"
-                  onClick={togglePause}
-                  disabled={!playing}
-                >
-                  {paused ? '▶ Reprendre' : 'Ⅱ Pause'}
-                </button>
-                <button
-                  type="button"
-                  className="stop-button"
-                  onClick={stopPlayback}
-                  disabled={!playing}
-                >
-                  ■ Stop
-                </button>
-                <label className="metronome-toggle">
-                  <input
-                    type="checkbox"
-                    checked={metronomeEnabled}
-                    disabled={playing}
-                    onChange={(event) =>
-                      setMetronomeEnabled(event.target.checked)
-                    }
-                  />
-                  Métronome
-                </label>
-              </fieldset>
-              <button
-                type="button"
-                className="fullscreen-button"
-                onClick={togglePreviewFullscreen}
-                aria-label={
-                  previewFullscreen
-                    ? 'Quitter le plein écran'
-                    : 'Afficher l’aperçu en plein écran'
-                }
+              <select
+                className="export-select"
+                value=""
+                aria-label="Exporter"
+                disabled={errors > 0}
+                onChange={(event) => {
+                  if (event.target.value === 'svg') exportSvg()
+                  if (event.target.value === 'midi') exportMidi()
+                }}
               >
-                {previewFullscreen ? 'Réduire' : 'Plein écran'}{' '}
-                <b aria-hidden="true">{previewFullscreen ? '↙' : '↗'}</b>
-              </button>
+                <option value="">Exporter…</option>
+                <option value="svg">SVG</option>
+                <option value="midi">MIDI</option>
+              </select>
+              <IconButton
+                icon={previewFullscreen ? fullscreenExit : fullscreen}
+                label={
+                  previewFullscreen ? 'Quitter le plein écran' : 'Plein écran'
+                }
+                onClick={async () =>
+                  document.fullscreenElement
+                    ? document.exitFullscreen()
+                    : previewRef.current?.requestFullscreen()
+                }
+              />
             </div>
           </div>
+          <div className="secondary-toolbar">
+            <fieldset className="transpose-controls">
+              <legend className="sr-only">Transposition</legend>
+              <span>Transposition</span>
+              <button
+                type="button"
+                className="step-button"
+                aria-label="Descendre d’un demi-ton"
+                onClick={() =>
+                  setTransposeSteps((value) => Math.max(-11, value - 1))
+                }
+              >
+                −
+              </button>
+              <output aria-label="Demi-tons">
+                {transposeSteps > 0 ? `+${transposeSteps}` : transposeSteps}
+              </output>
+              <button
+                type="button"
+                className="step-button"
+                aria-label="Monter d’un demi-ton"
+                onClick={() =>
+                  setTransposeSteps((value) => Math.min(11, value + 1))
+                }
+              >
+                +
+              </button>
+              <select
+                value={accidental}
+                aria-label="Altérations"
+                onChange={(event) =>
+                  setAccidental(event.target.value as Accidental)
+                }
+              >
+                <option value="sharp">♯</option>
+                <option value="flat">♭</option>
+              </select>
+              <label className="compact-check">
+                <input
+                  type="checkbox"
+                  checked={gridOnly}
+                  onChange={(event) => setGridOnly(event.target.checked)}
+                />{' '}
+                Grille seule
+              </label>
+              {!gridOnly && (
+                <IconButton
+                  icon={contentSaveEditOutline}
+                  label="Appliquer au texte"
+                  disabled={!transposeSteps}
+                  onClick={applyTranspose}
+                />
+              )}
+              {sourceBeforeTranspose && (
+                <IconButton
+                  icon={undo}
+                  label="Annuler la transposition du texte"
+                  onClick={() => {
+                    setSource(sourceBeforeTranspose)
+                    setSourceBeforeTranspose(null)
+                  }}
+                />
+              )}
+            </fieldset>
+            <fieldset className="transport" aria-label="Commandes de lecture">
+              <IconButton
+                icon={play}
+                label={paused ? 'Reprendre' : 'Lecture'}
+                onClick={paused ? togglePause : startPlayback}
+                disabled={(playing && !paused) || errors > 0}
+              />
+              <IconButton
+                icon={pause}
+                label="Pause"
+                onClick={togglePause}
+                disabled={!playing || paused}
+              />
+              <IconButton
+                icon={stop}
+                label="Stop"
+                onClick={stopPlayback}
+                disabled={!playing}
+              />
+              <IconButton
+                icon={metronome}
+                label="Métronome"
+                className={`icon-button${metronomeEnabled ? ' active' : ''}`}
+                aria-pressed={metronomeEnabled}
+                disabled={playing}
+                onClick={() => setMetronomeEnabled((value) => !value)}
+              />
+            </fieldset>
+          </div>
           <div className="canvas">
-            <ChordChart song={song} activeMeasureId={activeMeasureId} />
+            <ChordChart song={renderedSong} activeMeasureId={activeMeasureId} />
           </div>
         </section>
       </div>
       <footer className="site-footer">
         Réalisé avec ChatGPT 5.6 Sol… en 2 h 30 !
       </footer>
+
       {helpOpen && (
         <div className="drawer-layer">
           <section
@@ -435,21 +576,18 @@ export default function App() {
               }}
             />
             <div className="help-modal-header">
-              <div>
-                <span className="eyebrow">DOCUMENTATION</span>
-                <h2 id="help-title">Aide Grille Accords</h2>
-              </div>
+              <h2 id="help-title">Aide — langage</h2>
               <button
                 type="button"
-                className="modal-close"
+                className="close-button"
                 onClick={() => setHelpOpen(false)}
               >
                 Close
               </button>
             </div>
             <iframe
-              src="/GrilleAccordsHelp/GrilleAccordsHelp.html"
-              title="Aide de Grille Accords"
+              src="/GrilleAccordsHelp/GA_Langage.html"
+              title="Langage de description de Grille Accords"
             />
           </section>
         </div>
