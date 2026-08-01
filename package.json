@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port 4317 --strictPort --open /",
-    "build": "tsc -b && vite build && mkdir -p dist/client/GrilleAccordsHelp/images dist/server && cp GrilleAccordsHelp/GA_Langage.html GrilleAccordsHelp/HelpStyles.css dist/client/GrilleAccordsHelp/ && cp GrilleAccordsHelp/images/1.jpg GrilleAccordsHelp/images/2.jpg GrilleAccordsHelp/images/3.jpg GrilleAccordsHelp/images/4.jpg dist/client/GrilleAccordsHelp/images/ && cp worker/index.js dist/server/index.js",
+    "build": "tsc -b && vite build && mkdir -p dist/client/GrilleAccordsHelp dist/server && cp GrilleAccordsHelp/GA_Langage.html GrilleAccordsHelp/HelpStyles.css dist/client/GrilleAccordsHelp/ && cp worker/index.js dist/server/index.js",
     "preview": "pnpm run build && vite preview --port 4318 --strictPort --open /",
     "check": "biome check .",
     "check:fix": "biome check --write .",

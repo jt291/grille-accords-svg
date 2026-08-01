@@ -467,8 +467,8 @@ export default function App() {
                   setAccidental(event.target.value as Accidental)
                 }
               >
-                <option value="sharp">♯ {t.sharps}</option>
-                <option value="flat">♭ {t.flats}</option>
+                <option value="sharp">♯</option>
+                <option value="flat">♭</option>
               </select>
               <label className="compact-check">
                 <input
@@ -569,7 +569,7 @@ export default function App() {
               />
             </div>
             <iframe
-              src="/GrilleAccordsHelp/GA_Langage.html"
+              src={`/GrilleAccordsHelp/GA_Langage.html?lang=${language}`}
               title={t.helpFrame}
             />
           </section>
