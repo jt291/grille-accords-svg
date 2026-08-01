@@ -1,73 +1,77 @@
 # Grille Accords SVG
 
-Transformez une description textuelle d’accords en une grille musicale claire, compacte, jouable et prête à être partagée.
+[English](README.EN.md) · [العربية](README.AR.md) · [Brezhoneg](README.BR.md) · [中文](README.ZH.md) · [Français](README.FR.md) · [हिन्दी](README.HI.md) · [Kurdî](README.KU.md)
 
-L’application fonctionne directement dans le navigateur : écrivez ou importez une chanson, contrôlez immédiatement sa validité, visualisez la grille, écoutez-la et exportez-la dans le format adapté à votre usage.
+Turn a compact text description into a clear, playable chord chart—ready to rehearse, print, hear, and export.
 
-## Fonctionnalités
+Grille Accords SVG runs in the browser. Write or import a song, get immediate validation, preview its chart, transpose it, play it, and export it for the web or music-notation software.
 
-- édition de la description avec numéros de ligne, position du curseur et surlignage de la ligne active ;
-- aperçu SVG mis à jour automatiquement lorsque la description est valide ;
-- diagnostics détaillés indiquant la ligne, la position et le symbole concernés ;
-- exemples de chansons fournis dans le dossier `Chansons` ;
-- import et export de la description au format texte ;
-- export graphique en SVG, PNG et WebP ;
-- export musical en MIDI et MusicXML ;
-- lecture des accords avec l’API Web Audio ;
-- commandes de lecture, pause et arrêt, avec métronome optionnel ;
-- transposition en demi-tons avec choix des dièses ou des bémols ;
-- affichage compact des mesures, signatures rythmiques et repères de temps ;
-- impression et affichage du panneau SVG en plein écran ;
-- panneaux Description et SVG redimensionnables ;
-- aide intégrée dans un panneau latéral redimensionnable ;
-- modes clair et sombre ;
-- interface disponible en anglais, arabe, breton, chinois, français, hindi et kurde.
+## Features
+
+- Text editor with line numbers, cursor position, and active-line highlighting
+- Blocking diagnostics that identify the line, token position, and faulty symbol
+- Live SVG preview for valid descriptions
+- Built-in song examples from the `Chansons` directory
+- Text import and export
+- SVG, PNG, and WebP graphic exports
+- MIDI and MusicXML music exports
+- Web Audio playback with play, pause, stop, and optional metronome
+- Semitone transposition with sharp or flat spelling
+- Compact measures, prominent time signatures, and visual beat markers
+- Printing, full-screen chart view, and resizable editor/preview panels
+- Integrated, resizable help drawer
+- Light and dark themes
+- English, Arabic, Breton, Chinese, French, Hindi, and Kurdish interfaces
 
 ## Installation
 
-L’installation nécessite [Node.js](https://nodejs.org/) et [pnpm](https://pnpm.io/installation).
+Install [Node.js](https://nodejs.org/) and [pnpm](https://pnpm.io/installation), then follow these steps.
 
-### 1. Télécharger le projet
+### 1. Clone the repository
 
 ```sh
 git clone https://github.com/jt291/grille-accords-svg.git
 ```
 
-### 2. Entrer dans le dossier du projet
+### 2. Enter the project directory
 
 ```sh
 cd grille-accords-svg
 ```
 
-### 3. Installer les dépendances
+### 3. Install dependencies
 
 ```sh
 pnpm install
 ```
 
-### 4. Démarrer l’application
+### 4. Start the application
 
 ```sh
 pnpm dev
 ```
 
-L’application s’ouvre automatiquement dans le navigateur à l’adresse `http://localhost:4317/`.
+The application opens automatically at `http://localhost:4317/`.
 
-## Commandes utiles
+## Useful commands
 
 ```sh
-pnpm test       # exécuter les tests
-pnpm check      # vérifier le code avec Biome
-pnpm build      # produire la version de production
-pnpm preview    # construire et prévisualiser la version de production
+pnpm test       # Run the tests
+pnpm check      # Check the code with Biome
+pnpm build      # Create a production build
+pnpm preview    # Build and preview the production version
 ```
 
-La prévisualisation de production s’ouvre sur `http://localhost:4318/`.
+The production preview opens at `http://localhost:4318/`.
 
-## Organisation du code
+## Project structure
 
-- `src/parser.ts` analyse les descriptions textuelles ;
-- `src/ChordChart.tsx` produit la grille SVG ;
-- `src/audio.ts` gère la lecture et l’export MIDI ;
-- `src/musicxml.ts` produit les fichiers MusicXML ;
-- `src/App.tsx` contient l’interface de l’application.
+- `src/parser.ts` parses textual descriptions
+- `src/ChordChart.tsx` renders the SVG chart
+- `src/audio.ts` handles playback and MIDI export
+- `src/musicxml.ts` creates MusicXML files
+- `src/App.tsx` contains the application interface
+
+## Live application
+
+[Open Grille Accords SVG](https://grille-accords-svg.jtisseau.chatgpt.site/)
