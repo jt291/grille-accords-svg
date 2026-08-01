@@ -656,7 +656,7 @@ export default function App() {
           </div>
         </section>
       </div>
-      <footer className="site-footer">{t.footer}</footer>
+      <footer className="site-footer">Réalisé avec ChatGPT 5.6 Sol</footer>
 
       {helpOpen && (
         <div className="drawer-layer">
