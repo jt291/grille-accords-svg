@@ -31,6 +31,7 @@ La aplicación se abre automáticamente en `http://localhost:4317/`.
 ```sh
 pnpm test
 pnpm check
+pnpm run docs
 pnpm build
 pnpm preview
 ```

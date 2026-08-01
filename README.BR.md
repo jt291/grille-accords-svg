@@ -31,6 +31,7 @@ Digoret e vez an arload ent emgefreek war `http://localhost:4317/`.
 ```sh
 pnpm test
 pnpm check
+pnpm run docs
 pnpm build
 pnpm preview
 ```

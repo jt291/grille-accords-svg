@@ -31,6 +31,7 @@ pnpm dev
 ```sh
 pnpm test
 pnpm check
+pnpm run docs
 pnpm build
 pnpm preview
 ```

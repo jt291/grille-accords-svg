@@ -31,6 +31,7 @@ Sepan bixwe li `http://localhost:4317/` vedibe.
 ```sh
 pnpm test
 pnpm check
+pnpm run docs
 pnpm build
 pnpm preview
 ```
