@@ -116,6 +116,34 @@
           "Çewtiyên sereke: blocê Structure tune, akord an nîşana şaş, beşa nenas, mezûra netemam an dirêjahiya ji mezûrê zêdetir. Teşxîs rêza têkildar nîşan dide.",
         ],
       },
+      es: {
+        title: "Lenguaje de descripción", intro: "Una cuadrícula de acordes se describe con un texto compacto. La canción contiene un bloque Structure seguido de un bloque para cada parte musical.", contents: "Contenido",
+        names: ["Líneas", "Estructura de la canción", "Cuadrículas de las partes", "Duración de los acordes", "Compases", "Símbolos de acordes", "Otros símbolos", "Errores"],
+        texts: [
+          "Una línea contiene acordes distribuidos en compases. Por defecto, cada acorde ocupa un compás. El prefijo <code>4:</code> indica una duración de cuatro tiempos.",
+          "La canción comienza con <code>Structure:</code>. La línea siguiente define el compás y, opcionalmente, el tempo. Cada línea posterior hace referencia a una parte seguida de texto libre.",
+          "Después de la estructura, cada parte comienza con su nombre seguido de <code>:</code> o <code>=</code>. Un punto <code>.</code> repite el compás anterior.",
+          "Un prefijo como <code>2:</code> cambia la duración de los acordes siguientes de la línea. Las duraciones deben formar siempre compases completos.",
+          "Un compás se escribe <code>4/4</code>, <code>3/4</code>, <code>6/8</code>, etc. Un cambio de compás debe producirse entre dos compases completos.",
+          "La fundamental es una letra de <code>A</code> a <code>G</code>, seguida opcionalmente de <code>♯</code>/<code>#</code> o <code>♭</code>/<code>b</code>. Sufijos habituales: <code>m</code>, <code>7</code>, <code>m7</code>, <code>M7</code>, <code>sus2</code>, <code>sus4</code>, <code>dim</code>, <code>dim7</code>, <code>m7b5</code>, <code>6</code>, <code>m6</code>, <code>9</code>, <code>m9</code>, <code>add2</code>. Se puede añadir un bajo: <code>D7/F#</code>.",
+          "<code>n=120</code> fija el tempo, <code>NC</code> indica que no hay acorde, <code>.</code> repite un compás y <code>/</code> al final de una referencia oculta su cuadrícula.",
+          "Los errores principales son: bloque Structure ausente, acorde o símbolo incorrecto, parte desconocida, compás incompleto o duración excesiva. Los diagnósticos indican la línea afectada.",
+        ],
+      },
+      pt: {
+        title: "Linguagem de descrição", intro: "Uma grelha de acordes é descrita por um texto compacto. A canção contém um bloco Structure seguido de um bloco para cada parte musical.", contents: "Conteúdo",
+        names: ["Linhas", "Estrutura da canção", "Grelhas das partes", "Duração dos acordes", "Compassos", "Símbolos de acordes", "Outros símbolos", "Erros"],
+        texts: [
+          "Uma linha contém acordes distribuídos por compassos. Por predefinição, cada acorde ocupa um compasso. O prefixo <code>4:</code> indica uma duração de quatro tempos.",
+          "A canção começa com <code>Structure:</code>. A linha seguinte define o compasso e, opcionalmente, o andamento. Cada linha posterior referencia uma parte seguida de texto livre.",
+          "Depois da estrutura, cada parte começa pelo nome seguido de <code>:</code> ou <code>=</code>. Um ponto <code>.</code> repete o compasso anterior.",
+          "Um prefixo como <code>2:</code> altera a duração dos acordes seguintes na linha. As durações devem formar sempre compassos completos.",
+          "Um compasso escreve-se <code>4/4</code>, <code>3/4</code>, <code>6/8</code>, etc. Uma mudança de compasso deve ocorrer entre dois compassos completos.",
+          "A fundamental é uma letra de <code>A</code> a <code>G</code>, seguida opcionalmente de <code>♯</code>/<code>#</code> ou <code>♭</code>/<code>b</code>. Sufixos comuns: <code>m</code>, <code>7</code>, <code>m7</code>, <code>M7</code>, <code>sus2</code>, <code>sus4</code>, <code>dim</code>, <code>dim7</code>, <code>m7b5</code>, <code>6</code>, <code>m6</code>, <code>9</code>, <code>m9</code>, <code>add2</code>. Pode ser acrescentado um baixo: <code>D7/F#</code>.",
+          "<code>n=120</code> define o andamento, <code>NC</code> indica ausência de acorde, <code>.</code> repete um compasso e <code>/</code> no fim de uma referência oculta a sua grelha.",
+          "Os erros principais são: bloco Structure ausente, acorde ou símbolo incorreto, parte desconhecida, compasso incompleto ou duração excessiva. Os diagnósticos indicam a linha afetada.",
+        ],
+      },
     }
 
     const examples = [

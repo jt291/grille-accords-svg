@@ -1,6 +1,6 @@
 # Grille Accords SVG
 
-[English](README.EN.md) · [العربية](README.AR.md) · [Brezhoneg](README.BR.md) · [中文](README.ZH.md) · [Français](README.FR.md) · [हिन्दी](README.HI.md) · [Kurdî](README.KU.md)
+[English](README.EN.md) · [Español](README.ES.md) · [Português](README.PT.md) · [العربية](README.AR.md) · [Brezhoneg](README.BR.md) · [中文](README.ZH.md) · [Français](README.FR.md) · [हिन्दी](README.HI.md) · [Kurdî](README.KU.md)
 
 حوّل وصفاً نصياً موجزاً إلى شبكة أوتار واضحة وقابلة للعزف، جاهزة للتدريب والطباعة والاستماع والتصدير.
 
@@ -11,7 +11,7 @@
 - معاينة SVG ونقل طبقي وتشغيل Web Audio مع مترونوم
 - تصدير نص وSVG وPNG وWebP وMIDI وMusicXML
 - طباعة وملء الشاشة ولوحات قابلة لتغيير الحجم ووضعان فاتح وداكن
-- واجهة ومساعدة بسبع لغات
+- واجهة ومساعدة بتسع لغات
 
 ## التثبيت
 

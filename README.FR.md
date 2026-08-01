@@ -1,6 +1,6 @@
 # Grille Accords SVG
 
-[English](README.EN.md) · [العربية](README.AR.md) · [Brezhoneg](README.BR.md) · [中文](README.ZH.md) · [Français](README.FR.md) · [हिन्दी](README.HI.md) · [Kurdî](README.KU.md)
+[English](README.EN.md) · [Español](README.ES.md) · [Português](README.PT.md) · [العربية](README.AR.md) · [Brezhoneg](README.BR.md) · [中文](README.ZH.md) · [Français](README.FR.md) · [हिन्दी](README.HI.md) · [Kurdî](README.KU.md)
 
 Transformez une description textuelle compacte en une grille d’accords claire et jouable, prête à être répétée, imprimée, écoutée et exportée.
 
@@ -11,7 +11,7 @@ Transformez une description textuelle compacte en une grille d’accords claire 
 - aperçu SVG, transposition et lecture Web Audio avec métronome ;
 - exports texte, SVG, PNG, WebP, MIDI et MusicXML ;
 - impression, plein écran, panneaux redimensionnables et modes clair/sombre ;
-- interface et aide disponibles en sept langues.
+- interface et aide disponibles en neuf langues.
 
 ## Installation
 

@@ -1,6 +1,6 @@
 # Grille Accords SVG
 
-[English](README.EN.md) · [العربية](README.AR.md) · [Brezhoneg](README.BR.md) · [中文](README.ZH.md) · [Français](README.FR.md) · [हिन्दी](README.HI.md) · [Kurdî](README.KU.md)
+[English](README.EN.md) · [Español](README.ES.md) · [Português](README.PT.md) · [العربية](README.AR.md) · [Brezhoneg](README.BR.md) · [中文](README.ZH.md) · [Français](README.FR.md) · [हिन्दी](README.HI.md) · [Kurdî](README.KU.md)
 
 संक्षिप्त टेक्स्ट विवरण को स्पष्ट और बजाने योग्य कॉर्ड ग्रिड में बदलें—अभ्यास, प्रिंट, सुनने और निर्यात के लिए तैयार।
 
@@ -11,7 +11,7 @@
 - SVG पूर्वावलोकन, ट्रांसपोज़ और मेट्रोनोम सहित Web Audio प्लेबैक
 - टेक्स्ट, SVG, PNG, WebP, MIDI और MusicXML निर्यात
 - प्रिंट, पूर्ण स्क्रीन, आकार बदलने योग्य पैनल और लाइट/डार्क मोड
-- सात भाषाओं में इंटरफ़ेस और सहायता
+- नौ भाषाओं में इंटरफ़ेस और सहायता
 
 ## स्थापना
 

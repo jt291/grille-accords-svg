@@ -1,6 +1,6 @@
 # Grille Accords SVG
 
-[English](README.EN.md) · [العربية](README.AR.md) · [Brezhoneg](README.BR.md) · [中文](README.ZH.md) · [Français](README.FR.md) · [हिन्दी](README.HI.md) · [Kurdî](README.KU.md)
+[English](README.EN.md) · [Español](README.ES.md) · [Português](README.PT.md) · [العربية](README.AR.md) · [Brezhoneg](README.BR.md) · [中文](README.ZH.md) · [Français](README.FR.md) · [हिन्दी](README.HI.md) · [Kurdî](README.KU.md)
 
 Turn a compact text description into a clear, playable chord chart—ready to rehearse, print, hear, and export.
 
@@ -11,7 +11,7 @@ Turn a compact text description into a clear, playable chord chart—ready to re
 - SVG preview, transposition, and Web Audio playback with a metronome
 - Text, SVG, PNG, WebP, MIDI, and MusicXML exports
 - Printing, full screen, resizable panels, and light/dark themes
-- Interface and help available in seven languages
+- Interface and help available in nine languages
 
 ## Installation
 

@@ -1,6 +1,6 @@
 # Grille Accords SVG
 
-[English](README.EN.md) · [العربية](README.AR.md) · [Brezhoneg](README.BR.md) · [中文](README.ZH.md) · [Français](README.FR.md) · [हिन्दी](README.HI.md) · [Kurdî](README.KU.md)
+[English](README.EN.md) · [Español](README.ES.md) · [Português](README.PT.md) · [العربية](README.AR.md) · [Brezhoneg](README.BR.md) · [中文](README.ZH.md) · [Français](README.FR.md) · [हिन्दी](README.HI.md) · [Kurdî](README.KU.md)
 
 Danasîna nivîsî ya kurt veguherînin grideke akordan a zelal û lêdanbar, amade ji bo pratîkê, çapkirinê, guhdarîkirinê û derxistinê.
 
@@ -11,7 +11,7 @@ Danasîna nivîsî ya kurt veguherînin grideke akordan a zelal û lêdanbar, am
 - pêşdîtina SVG, transpozîsyon û lêdana Web Audio bi metronomê
 - derxistina nivîs, SVG, PNG, WebP, MIDI û MusicXML
 - çap, dîmendera tijî, panelên guhêrbar û modên ronî/tarî
-- navrû û alîkarî bi heft zimanan
+- navrû û alîkarî bi neh zimanan
 
 ## Sazkirin
 

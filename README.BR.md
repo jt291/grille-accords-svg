@@ -1,6 +1,6 @@
 # Grille Accords SVG
 
-[English](README.EN.md) · [العربية](README.AR.md) · [Brezhoneg](README.BR.md) · [中文](README.ZH.md) · [Français](README.FR.md) · [हिन्दी](README.HI.md) · [Kurdî](README.KU.md)
+[English](README.EN.md) · [Español](README.ES.md) · [Português](README.PT.md) · [العربية](README.AR.md) · [Brezhoneg](README.BR.md) · [中文](README.ZH.md) · [Français](README.FR.md) · [हिन्दी](README.HI.md) · [Kurdî](README.KU.md)
 
 Treuzfurmit un deskrivadur testenn berr en ur gael akordoù sklaer ha aes da seniñ, prest evit pleustriñ, moullañ, selaou hag ezporzhiañ.
 
@@ -11,7 +11,7 @@ Treuzfurmit un deskrivadur testenn berr en ur gael akordoù sklaer ha aes da sen
 - alberz SVG, treuzlec’hiañ ha lenn Web Audio gant metronom
 - ezporzhioù testenn, SVG, PNG, WebP, MIDI ha MusicXML
 - moullañ, skramm leun, panelloù adventadus ha modoù sklaer/teñval
-- etrefas ha skoazell e seizh yezh
+- etrefas ha skoazell e nav yezh
 
 ## Staliañ
 

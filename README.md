@@ -1,6 +1,6 @@
 # Grille Accords SVG
 
-[English](README.EN.md) · [العربية](README.AR.md) · [Brezhoneg](README.BR.md) · [中文](README.ZH.md) · [Français](README.FR.md) · [हिन्दी](README.HI.md) · [Kurdî](README.KU.md)
+[English](README.EN.md) · [Español](README.ES.md) · [Português](README.PT.md) · [العربية](README.AR.md) · [Brezhoneg](README.BR.md) · [中文](README.ZH.md) · [Français](README.FR.md) · [हिन्दी](README.HI.md) · [Kurdî](README.KU.md)
 
 Turn a compact text description into a clear, playable chord chart—ready to rehearse, print, hear, and export.
 
@@ -21,7 +21,7 @@ Grille Accords SVG runs in the browser. Write or import a song, get immediate va
 - Printing, full-screen chart view, and resizable editor/preview panels
 - Integrated, resizable help drawer
 - Light and dark themes
-- English, Arabic, Breton, Chinese, French, Hindi, and Kurdish interfaces
+- English, Spanish, Portuguese, Arabic, Breton, Chinese, French, Hindi, and Kurdish interfaces
 
 ## Installation
 
