@@ -36,3 +36,5 @@ pnpm preview
 ```
 
 [ऐप खोलें](https://grille-accords-svg.jtisseau.chatgpt.site/)
+
+[TypeScript API दस्तावेज़ देखें](https://jt291.github.io/grille-accords-svg/)

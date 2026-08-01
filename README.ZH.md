@@ -36,3 +36,5 @@ pnpm preview
 ```
 
 [打开应用](https://grille-accords-svg.jtisseau.chatgpt.site/)
+
+[浏览 TypeScript API 文档](https://jt291.github.io/grille-accords-svg/)

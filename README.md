@@ -76,3 +76,7 @@ The production preview opens at `http://localhost:4318/`.
 ## Live application
 
 [Open Grille Accords SVG](https://grille-accords-svg.jtisseau.chatgpt.site/)
+
+## API documentation
+
+[Browse the TypeScript API documentation](https://jt291.github.io/grille-accords-svg/)

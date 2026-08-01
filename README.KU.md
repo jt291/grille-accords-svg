@@ -36,3 +36,5 @@ pnpm preview
 ```
 
 [Sepanê veke](https://grille-accords-svg.jtisseau.chatgpt.site/)
+
+[Belgekirina API ya TypeScript bibîne](https://jt291.github.io/grille-accords-svg/)

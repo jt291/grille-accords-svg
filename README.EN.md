@@ -37,3 +37,5 @@ pnpm preview
 ```
 
 [Open the application](https://grille-accords-svg.jtisseau.chatgpt.site/)
+
+[Browse the TypeScript API documentation](https://jt291.github.io/grille-accords-svg/)

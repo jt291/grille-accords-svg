@@ -36,3 +36,5 @@ pnpm preview
 ```
 
 [Digeriñ an arload](https://grille-accords-svg.jtisseau.chatgpt.site/)
+
+[Gwelet teuliadur API TypeScript](https://jt291.github.io/grille-accords-svg/)
