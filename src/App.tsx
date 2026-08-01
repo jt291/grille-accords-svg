@@ -1,4 +1,5 @@
 import { Icon, type IconifyIcon } from '@iconify/react'
+import close from '@iconify-icons/mdi/close'
 import contentSaveEditOutline from '@iconify-icons/mdi/content-save-edit-outline'
 import fileDownloadOutline from '@iconify-icons/mdi/file-download-outline'
 import fileUploadOutline from '@iconify-icons/mdi/file-upload-outline'
@@ -17,6 +18,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import logoGa from './assets/logo-ga.svg'
 import { createMidiFile, type PlaybackController, playSong } from './audio'
 import { ChordChart } from './ChordChart'
+import { defaultLanguage, type Language, languages, messages } from './i18n'
 import { parseSong } from './parser'
 import {
   type Accidental,
@@ -35,22 +37,6 @@ const entries = Object.entries(examples).sort(([a], [b]) =>
 const initial =
   entries.find(([path]) => path.endsWith('/Blackbird.txt'))?.[1] ??
   `Ma chanson\n\nStructure:\n4/4 n=120\nCouplet : premier couplet\n\nCouplet:\n4: C Am F G`
-
-type Language = 'ar' | 'br' | 'en' | 'fr' | 'hi' | 'ku' | 'zh'
-const languages: { code: Language; flag: string; name: string }[] = [
-  { code: 'en', flag: '🇬🇧', name: 'English' },
-  { code: 'ar', flag: '🇸🇦', name: 'العربية' },
-  { code: 'br', flag: '🏴', name: 'Brezhoneg' },
-  { code: 'zh', flag: '🇨🇳', name: '中文' },
-  { code: 'fr', flag: '🇫🇷', name: 'Français' },
-  { code: 'hi', flag: '🇮🇳', name: 'हिन्दी' },
-  { code: 'ku', flag: '☀️', name: 'Kurdî' },
-]
-const supported = new Set(languages.map(({ code }) => code))
-const systemLanguage = (): Language => {
-  const code = navigator.language.split('-')[0] as Language
-  return supported.has(code) ? code : 'en'
-}
 
 function IconButton({
   icon,
@@ -91,7 +77,7 @@ export default function App() {
   const [paused, setPaused] = useState(false)
   const [metronomeEnabled, setMetronomeEnabled] = useState(false)
   const [activeMeasureId, setActiveMeasureId] = useState<string | null>(null)
-  const [language, setLanguage] = useState<Language>(systemLanguage)
+  const [language, setLanguage] = useState<Language>(defaultLanguage)
   const [dark, setDark] = useState(
     () => matchMedia('(prefers-color-scheme: dark)').matches,
   )
@@ -114,6 +100,7 @@ export default function App() {
     (diagnostic) => diagnostic.severity === 'error',
   ).length
   const lineCount = source.split('\n').length
+  const t = messages[language]
 
   useEffect(() => {
     document.documentElement.lang = language
@@ -244,13 +231,13 @@ export default function App() {
 
   return (
     <main>
-      <nav className="main-toolbar" aria-label="Commandes principales">
+      <nav className="main-toolbar" aria-label={t.mainCommands}>
         <div className="toolbar-start">
           <img className="app-logo" src={logoGa} alt="Grille Accords" />
           <select
             className="example-select"
             value={selectedExample}
-            aria-label="Choisir un exemple"
+            aria-label={t.chooseExample}
             onChange={(event) => {
               const path = event.target.value
               setSelectedExample(path)
@@ -261,7 +248,7 @@ export default function App() {
               }
             }}
           >
-            <option value="">Choisir un exemple…</option>
+            <option value="">{t.chooseExample}</option>
             {entries.map(([path]) => (
               <option key={path} value={path}>
                 {path.split('/').pop()?.replace('.txt', '')}
@@ -272,17 +259,16 @@ export default function App() {
         <div className="song-summary">
           <strong>{song.title}</strong>
           <span className={errors ? 'status bad' : 'status'}>
-            {errors ? 'À corriger' : 'Grille valide'} :{' '}
-            {song.diagnostics.length} diagnostic
-            {song.diagnostics.length !== 1 ? 's' : ''}
+            {errors ? t.invalid : t.valid} : {song.diagnostics.length}{' '}
+            {song.diagnostics.length === 1 ? t.diagnostic : t.diagnostics}
           </span>
         </div>
         <div className="toolbar-end">
           <select
             className="language-select"
             value={language}
-            aria-label="Langue"
-            title="Langue"
+            aria-label={t.language}
+            title={t.language}
             onChange={(event) => setLanguage(event.target.value as Language)}
           >
             {languages.map(({ code, flag, name }) => (
@@ -293,7 +279,7 @@ export default function App() {
           </select>
           <IconButton
             icon={themeLightDark}
-            label={dark ? 'Mode clair' : 'Mode sombre'}
+            label={dark ? t.lightMode : t.darkMode}
             onClick={() => setDark((value) => !value)}
           />
           <a
@@ -301,8 +287,8 @@ export default function App() {
             href="https://github.com/jt291/grille-accords-svg"
             target="_blank"
             rel="noreferrer"
-            aria-label="Sources GitHub"
-            title="Sources GitHub"
+            aria-label={t.github}
+            title={t.github}
           >
             <Icon icon={github} />
           </a>
@@ -328,32 +314,32 @@ export default function App() {
       >
         <section className="source-panel">
           <div className="panel-toolbar">
-            <strong>Description</strong>
+            <strong>{t.description}</strong>
             <div className="panel-actions">
               <IconButton
                 icon={helpCircleOutline}
-                label="Aide"
+                label={t.help}
                 onClick={() => setHelpOpen(true)}
               />
               <IconButton
                 icon={printer}
-                label="Imprimer"
+                label={t.print}
                 onClick={() => window.print()}
               />
               <IconButton
                 icon={fileUploadOutline}
-                label="Importer un texte"
+                label={t.importText}
                 onClick={() => importInputRef.current?.click()}
               />
               <IconButton
                 icon={fileDownloadOutline}
-                label="Exporter le texte"
+                label={t.exportText}
                 onClick={() =>
                   download(source, 'text/plain;charset=utf-8', 'txt')
                 }
               />
               <small>
-                {lineCount} ligne{lineCount !== 1 ? 's' : ''}
+                {lineCount} {lineCount === 1 ? t.line : t.lines}
               </small>
             </div>
           </div>
@@ -375,19 +361,22 @@ export default function App() {
               onScroll={(event) =>
                 setEditorScroll(event.currentTarget.scrollTop)
               }
-              aria-label="Description textuelle de la grille"
+              aria-label={t.editorLabel}
             />
           </div>
           <div className="diagnostics" aria-live="polite">
             {song.diagnostics.length === 0 ? (
-              <p>✓ Description valide.</p>
+              <p>✓ {t.validDescription}</p>
             ) : (
               song.diagnostics.slice(0, 5).map((diagnostic, index) => (
                 <p
                   key={`${diagnostic.line}-${index}`}
                   className={diagnostic.severity}
                 >
-                  <b>Ligne {diagnostic.line}</b> — {diagnostic.message}
+                  <b>
+                    {t.lineLabel} {diagnostic.line}
+                  </b>{' '}
+                  — {diagnostic.message}
                 </p>
               ))
             )}
@@ -396,7 +385,7 @@ export default function App() {
 
         <hr
           className="workspace-splitter"
-          aria-label="Redimensionner les panneaux"
+          aria-label={t.resizePanels}
           aria-orientation="vertical"
           aria-valuemin={25}
           aria-valuemax={75}
@@ -416,28 +405,26 @@ export default function App() {
             <strong>SVG</strong>
             <div className="panel-actions">
               <small>
-                {renderedSong.sections.length} parties ·{' '}
-                {renderedSong.parts.size} grilles
+                {renderedSong.sections.length} {t.parts} ·{' '}
+                {renderedSong.parts.size} {t.grids}
               </small>
               <select
                 className="export-select"
                 value=""
-                aria-label="Exporter"
+                aria-label={t.export}
                 disabled={errors > 0}
                 onChange={(event) => {
                   if (event.target.value === 'svg') exportSvg()
                   if (event.target.value === 'midi') exportMidi()
                 }}
               >
-                <option value="">Exporter…</option>
+                <option value="">{t.export}</option>
                 <option value="svg">SVG</option>
                 <option value="midi">MIDI</option>
               </select>
               <IconButton
                 icon={previewFullscreen ? fullscreenExit : fullscreen}
-                label={
-                  previewFullscreen ? 'Quitter le plein écran' : 'Plein écran'
-                }
+                label={previewFullscreen ? t.exitFullscreen : t.fullscreen}
                 onClick={async () =>
                   document.fullscreenElement
                     ? document.exitFullscreen()
@@ -448,25 +435,25 @@ export default function App() {
           </div>
           <div className="secondary-toolbar">
             <fieldset className="transpose-controls">
-              <legend className="sr-only">Transposition</legend>
-              <span>Transposition</span>
+              <legend className="sr-only">{t.transposition}</legend>
+              <span>{t.transposition}</span>
               <button
                 type="button"
                 className="step-button"
-                aria-label="Descendre d’un demi-ton"
+                aria-label={t.downSemitone}
                 onClick={() =>
                   setTransposeSteps((value) => Math.max(-11, value - 1))
                 }
               >
                 −
               </button>
-              <output aria-label="Demi-tons">
+              <output aria-label={t.semitones}>
                 {transposeSteps > 0 ? `+${transposeSteps}` : transposeSteps}
               </output>
               <button
                 type="button"
                 className="step-button"
-                aria-label="Monter d’un demi-ton"
+                aria-label={t.upSemitone}
                 onClick={() =>
                   setTransposeSteps((value) => Math.min(11, value + 1))
                 }
@@ -475,13 +462,13 @@ export default function App() {
               </button>
               <select
                 value={accidental}
-                aria-label="Altérations"
+                aria-label={t.accidentals}
                 onChange={(event) =>
                   setAccidental(event.target.value as Accidental)
                 }
               >
-                <option value="sharp">♯</option>
-                <option value="flat">♭</option>
+                <option value="sharp">♯ {t.sharps}</option>
+                <option value="flat">♭ {t.flats}</option>
               </select>
               <label className="compact-check">
                 <input
@@ -489,12 +476,12 @@ export default function App() {
                   checked={gridOnly}
                   onChange={(event) => setGridOnly(event.target.checked)}
                 />{' '}
-                Grille seule
+                {t.gridOnly}
               </label>
               {!gridOnly && (
                 <IconButton
                   icon={contentSaveEditOutline}
-                  label="Appliquer au texte"
+                  label={t.applyText}
                   disabled={!transposeSteps}
                   onClick={applyTranspose}
                 />
@@ -502,7 +489,7 @@ export default function App() {
               {sourceBeforeTranspose && (
                 <IconButton
                   icon={undo}
-                  label="Annuler la transposition du texte"
+                  label={t.undoTranspose}
                   onClick={() => {
                     setSource(sourceBeforeTranspose)
                     setSourceBeforeTranspose(null)
@@ -510,28 +497,28 @@ export default function App() {
                 />
               )}
             </fieldset>
-            <fieldset className="transport" aria-label="Commandes de lecture">
+            <fieldset className="transport" aria-label={t.transport}>
               <IconButton
                 icon={play}
-                label={paused ? 'Reprendre' : 'Lecture'}
+                label={paused ? t.resume : t.play}
                 onClick={paused ? togglePause : startPlayback}
                 disabled={(playing && !paused) || errors > 0}
               />
               <IconButton
                 icon={pause}
-                label="Pause"
+                label={t.pause}
                 onClick={togglePause}
                 disabled={!playing || paused}
               />
               <IconButton
                 icon={stop}
-                label="Stop"
+                label={t.stop}
                 onClick={stopPlayback}
                 disabled={!playing}
               />
               <IconButton
                 icon={metronome}
-                label="Métronome"
+                label={t.metronome}
                 className={`icon-button${metronomeEnabled ? ' active' : ''}`}
                 aria-pressed={metronomeEnabled}
                 disabled={playing}
@@ -544,9 +531,7 @@ export default function App() {
           </div>
         </section>
       </div>
-      <footer className="site-footer">
-        Réalisé avec ChatGPT 5.6 Sol… en 2 h 30 !
-      </footer>
+      <footer className="site-footer">{t.footer}</footer>
 
       {helpOpen && (
         <div className="drawer-layer">
@@ -559,7 +544,7 @@ export default function App() {
           >
             <hr
               className="drawer-resizer"
-              aria-label="Redimensionner l’aide"
+              aria-label={t.resizeHelp}
               aria-orientation="vertical"
               aria-valuemin={360}
               aria-valuemax={Math.max(360, window.innerWidth - 24)}
@@ -576,18 +561,16 @@ export default function App() {
               }}
             />
             <div className="help-modal-header">
-              <h2 id="help-title">Aide — langage</h2>
-              <button
-                type="button"
-                className="close-button"
+              <h2 id="help-title">{t.helpTitle}</h2>
+              <IconButton
+                icon={close}
+                label={t.closeHelp}
                 onClick={() => setHelpOpen(false)}
-              >
-                Close
-              </button>
+              />
             </div>
             <iframe
               src="/GrilleAccordsHelp/GA_Langage.html"
-              title="Langage de description de Grille Accords"
+              title={t.helpFrame}
             />
           </section>
         </div>

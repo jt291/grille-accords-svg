@@ -15,6 +15,8 @@
   --accent: #e86f43;
   --toolbar: #172018;
   --toolbar-ink: #f2f3eb;
+  --icon-surface: #e4e6dd;
+  --icon-border: #b7bdb3;
 }
 
 :root[data-theme="dark"] {
@@ -28,6 +30,8 @@
   --muted: #a8b2a9;
   --toolbar: #090d0a;
   --toolbar-ink: #f2f3eb;
+  --icon-surface: #364039;
+  --icon-border: #657268;
 }
 
 * {
@@ -187,6 +191,28 @@ select:focus-visible {
 .icon-button.active {
   background: #f4dfb8;
   color: #58441f;
+}
+.panel-toolbar .icon-button,
+.secondary-toolbar .icon-button,
+.help-modal-header .icon-button {
+  border-color: var(--icon-border);
+  background: var(--icon-surface);
+  color: var(--ink);
+}
+.panel-toolbar .icon-button:hover,
+.secondary-toolbar .icon-button:hover,
+.help-modal-header .icon-button:hover {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--icon-surface) 75%, var(--accent));
+}
+:root[data-theme="dark"] .icon-button:disabled {
+  color: #bdc7bf;
+  opacity: 0.55;
+}
+:root[data-theme="dark"] .icon-button.active {
+  border-color: #ffd181;
+  background: #725523;
+  color: #fff3d8;
 }
 
 .file-input,
@@ -527,15 +553,6 @@ textarea {
   font:
     27px / 1 Instrument Serif,
     serif;
-}
-.close-button {
-  border: 0;
-  border-radius: 7px;
-  background: var(--toolbar);
-  color: var(--toolbar-ink);
-  font-weight: 700;
-  padding: 9px 14px;
-  cursor: pointer;
 }
 .help-drawer iframe {
   flex: 1;
