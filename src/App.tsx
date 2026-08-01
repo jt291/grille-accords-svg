@@ -526,7 +526,7 @@ export default function App() {
               />
             </fieldset>
           </div>
-          <div className="canvas">
+          <div className="canvas" dir="ltr">
             <ChordChart song={renderedSong} activeMeasureId={activeMeasureId} />
           </div>
         </section>

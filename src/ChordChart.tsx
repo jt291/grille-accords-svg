@@ -139,6 +139,8 @@ export function ChordChart({
       id="chord-chart"
       xmlns="http://www.w3.org/2000/svg"
       viewBox={`0 0 ${W} ${height}`}
+      direction="ltr"
+      lang="fr"
       role="img"
       aria-label={`Grille d’accords de ${song.title}`}
     >

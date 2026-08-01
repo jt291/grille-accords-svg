@@ -440,6 +440,8 @@ textarea {
 }
 
 .canvas {
+  direction: ltr;
+  unicode-bidi: isolate;
   flex: 1;
   overflow: auto;
   padding: clamp(18px, 3vw, 38px);
@@ -456,6 +458,7 @@ textarea {
     linear-gradient(90deg, #3b453d 1px, transparent 1px);
 }
 #chord-chart {
+  direction: ltr;
   display: block;
   width: 100%;
   height: auto;
