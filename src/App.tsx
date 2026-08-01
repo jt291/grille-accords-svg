@@ -19,6 +19,7 @@ import logoGa from './assets/logo-ga.svg'
 import { createMidiFile, type PlaybackController, playSong } from './audio'
 import { ChordChart } from './ChordChart'
 import { defaultLanguage, type Language, languages, messages } from './i18n'
+import { createMusicXml } from './musicxml'
 import { parseSong } from './parser'
 import {
   type Accidental,
@@ -185,12 +186,47 @@ export default function App() {
         'svg',
       )
   }
+  const exportRaster = async (format: 'png' | 'webp') => {
+    const svg = document.getElementById('chord-chart') as SVGSVGElement | null
+    if (!svg) return
+    const viewBox = svg.viewBox.baseVal
+    const scale = 2
+    const canvas = document.createElement('canvas')
+    canvas.width = viewBox.width * scale
+    canvas.height = viewBox.height * scale
+    const context = canvas.getContext('2d')
+    if (!context) return
+    const source = new Blob([new XMLSerializer().serializeToString(svg)], {
+      type: 'image/svg+xml',
+    })
+    const url = URL.createObjectURL(source)
+    const image = new Image()
+    await new Promise<void>((resolve, reject) => {
+      image.onload = () => resolve()
+      image.onerror = () => reject(new Error('Impossible de convertir le SVG.'))
+      image.src = url
+    })
+    context.fillStyle = '#fffdf7'
+    context.fillRect(0, 0, canvas.width, canvas.height)
+    context.drawImage(image, 0, 0, canvas.width, canvas.height)
+    URL.revokeObjectURL(url)
+    const blob = await new Promise<Blob | null>((resolve) =>
+      canvas.toBlob(resolve, `image/${format}`, 0.92),
+    )
+    if (blob) download(blob, blob.type, format)
+  }
   const exportMidi = () => {
     const data = createMidiFile(renderedSong)
     const buffer = new ArrayBuffer(data.byteLength)
     new Uint8Array(buffer).set(data)
     download(buffer, 'audio/midi', 'mid')
   }
+  const exportMusicXml = () =>
+    download(
+      createMusicXml(renderedSong),
+      'application/vnd.recordare.musicxml+xml;charset=utf-8',
+      'musicxml',
+    )
   const importText = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
     if (!file) return
@@ -441,12 +477,19 @@ export default function App() {
                 disabled={errors > 0}
                 onChange={(event) => {
                   if (event.target.value === 'svg') exportSvg()
+                  if (event.target.value === 'png') void exportRaster('png')
+                  if (event.target.value === 'webp') void exportRaster('webp')
                   if (event.target.value === 'midi') exportMidi()
+                  if (event.target.value === 'musicxml') exportMusicXml()
                 }}
               >
                 <option value="">{t.export}</option>
                 <option value="svg">SVG</option>
+                <option value="png">PNG</option>
+                <option value="webp">WebP</option>
+                <option disabled>──────────</option>
                 <option value="midi">MIDI</option>
+                <option value="musicxml">MusicXML</option>
               </select>
               <IconButton
                 icon={previewFullscreen ? fullscreenExit : fullscreen}
